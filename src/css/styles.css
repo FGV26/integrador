@@ -1,0 +1,109 @@
+p{ 
+    font-size: 16px;
+}
+
+body {
+    padding-top: 56px; /* Ajusta este valor según la altura de tu barra de navegación */
+    font-family: "Ubuntu Sans Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+}
+
+.hero-section {
+    background: url('../img/hero-bg.png') no-repeat center center/cover;
+    height: 610px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    
+}
+
+.hero-section p {
+    font-size: 1.2em;
+}
+
+.hero-section h2 {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.hero-section .btn {
+    margin-top: 20px;
+}
+
+/* Estilos para el dropdown en el navbar */
+.navbar-nav .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #000; /* Fondo negro */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.navbar-nav .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.navbar-nav .dropdown-menu .dropdown-item {
+    color: #fff; /* Texto blanco */
+}
+
+.navbar-nav .dropdown-menu .dropdown-item:hover {
+    color: #ffc108;
+    background-color: transparent;
+}
+
+/* Estilo adicional para el link de bienvenida */
+.navbar-nav .nav-link {
+    color: #fff; /* Texto blanco */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffc108; /* Color del texto al pasar el mouse */
+}
+
+
+
+
+
+
+/* SOBREESCRITURAS DE LAS CLASES DE BOOSTRAP */ 
+
+.bg-dark {
+    background-color: #000000 !important;
+}
+
+/* Aumentar la intensidad del color de los enlaces en el nav al hacer hover */
+.navbar-dark .navbar-nav .nav-link {
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #ffc108; /* Cambia este valor por el color que prefieras */
+}
+
+
+[data-aos="fade-left"] {
+    opacity: 0;
+    transform: translateX(100px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+[data-aos="fade-up"] {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+[data-aos="zoom-in"] {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+[data-aos][data-aos].aos-animate {
+    opacity: 1;
+    transform: translate(0, 0);
+}

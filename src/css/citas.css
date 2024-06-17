@@ -1,0 +1,36 @@
+/* Diseño del modal */
+.modal-voucher {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-voucher h5 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.voucher-details {
+    margin-bottom: 10px;
+}
+
+.voucher-details span {
+    display: block;
+    font-weight: bold;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.modal-footer {
+    justify-content: center;
+}
