@@ -4,7 +4,7 @@ class Conexion {
     private $username = "root";
     private $password = "";
     private $dbname = "estudiojuridico";
-    private $port = 3307; // Asegúrate de que este puerto coincida con el configurado en my.ini
+    private $port = 3306;//Asegúrate de que este puerto coincida con el configurado en my.ini
     public $conn;
 
     public function __construct() {

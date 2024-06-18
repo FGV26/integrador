@@ -25,7 +25,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
 </head>
 
 <body>
-    <header class="bg-dark text-white">
+<header class="bg-dark text-white">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Estudio Jurídico Ortiz y Asociados</a>
@@ -38,10 +38,10 @@ $base_url = 'http://localhost/INTEGRADOR/';
                             <a class="nav-link active" aria-current="page" href="InterfazAbogado.php">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="PerfilAbogado.php ">Perfil</a>
+                            <a class="nav-link" href="PerfilAbogado.php">Perfil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Ver Citas</a>
+                            <a class="nav-link" href="VerCitasAbogado.php">Ver Citas</a>
                         </li>
                     </ul>
                 </div>

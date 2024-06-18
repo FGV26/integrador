@@ -41,13 +41,13 @@ $tipoDeCasoDAO = new TipoDeCasoDAO();
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="InterfazAbogado.php">Inicio</a>
+                            <a class="nav-link active" aria-current="page" href="InterfazAbogado.php">Inicio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="PerfilAbogado.php">Perfil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="VerCitasAbogado.php">Ver Citas</a>
+                            <a class="nav-link" href="VerCitasAbogado.php">Ver Citas</a>
                         </li>
                     </ul>
                 </div>
