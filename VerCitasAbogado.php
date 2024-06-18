@@ -2,9 +2,10 @@
 require_once 'model/Usuario.php';
 require_once 'dao/CitaDAO.php';
 require_once 'dao/UsuarioDAO.php';
+require_once 'dao/TipoDeCasoDAO.php';
 session_start();
 
-if (!isset($_SESSION['usuario']) || $_SESSION['usuario']->getRol() != 'cliente') {
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']->getRol() != 'abogado') {
     header('Location: login.php');
     exit();
 }
@@ -12,21 +13,11 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']->getRol() != 'cliente')
 $usuario = $_SESSION['usuario'];
 $base_url = 'http://localhost/INTEGRADOR/';
 
-if (!isset($_GET['id'])) {
-    header('Location: VerCitas.php');
-    exit();
-}
-
 $citaDAO = new CitaDAO();
-$cita = $citaDAO->obtenerPorId($_GET['id']);
-
-if (!$cita) {
-    header('Location: VerCitas.php');
-    exit();
-}
+$citas = $citaDAO->obtenerCitasPorAbogado($usuario->getId());
 
 $usuarioDAO = new UsuarioDAO();
-$abogado = $usuarioDAO->obtenerPorId($cita->getAbogadoId());
+$tipoDeCasoDAO = new TipoDeCasoDAO();
 ?>
 
 <!DOCTYPE html>
@@ -34,11 +25,10 @@ $abogado = $usuarioDAO->obtenerPorId($cita->getAbogadoId());
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles de la Cita - Estudio Jurídico Ortiz y Asociados</title>
+    <title>Citas Programadas - Estudio Jurídico Ortiz y Asociados</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/styles.css">
-    <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/admin.css">
 </head>
 <body>
     <header class="bg-dark text-white">
@@ -51,10 +41,13 @@ $abogado = $usuarioDAO->obtenerPorId($cita->getAbogadoId());
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="PerfilCliente.php">Perfil</a>
+                            <a class="nav-link" href="InterfazAbogado.php">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="VerCitas.php">Ver Citas</a>
+                            <a class="nav-link" href="PerfilAbogado.php">Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="VerCitasAbogado.php">Ver Citas</a>
                         </li>
                     </ul>
                 </div>
@@ -63,24 +56,39 @@ $abogado = $usuarioDAO->obtenerPorId($cita->getAbogadoId());
         </nav>
     </header>
 
-    <main class="container pt-5 mt-5">
-        <h1>Datos de tu Cita</h1>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Detalles de la Cita</h5>
-                <p class="card-text"><strong>Cliente:</strong> <?php echo $usuario->getNombre() . ' ' . $usuario->getApellidoPaterno(); ?></p>
-                <p class="card-text"><strong>Abogado:</strong> <?php echo $abogado->getNombre() . ' ' . $abogado->getApellidoPaterno(); ?></p>
-                <p class="card-text"><strong>Fecha:</strong> <?php echo $cita->getFecha(); ?></p>
-                <p class="card-text"><strong>Hora:</strong> <?php echo $cita->getHora(); ?></p>
-                <p class="card-text"><strong>Tipo de Caso:</strong> <?php echo $cita->getTipoDeCasoId(); ?></p> <!-- Puedes cambiar esto para mostrar el tipo de caso -->
-                <p class="card-text"><strong>Mensaje:</strong> <?php echo $cita->getMensaje(); ?></p>
-                <a href="VerCitas.php" class="btn btn-secondary">Volver</a>
-                <button class="btn btn-danger">Cancelar Cita</button>
-            </div>
-         </div>
-    </main>
+    <div class="container mt-5 pt-5">
+        <h1>Citas Programadas</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Cita</th>
+                    <th>Hora</th>
+                    <th>Cliente</th>
+                    <th>Tipo de Caso</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($citas as $index => $cita) : ?>
+                    <?php
+                        $cliente = $usuarioDAO->obtenerPorId($cita->getClienteId());
+                        $tipoDeCaso = $tipoDeCasoDAO->obtenerPorId($cita->getTipoDeCasoId());
+                    ?>
+                    <tr>
+                        <td><?php echo "CITA " . ($index + 1); ?></td>
+                        <td><?php echo $cita->getHora(); ?></td>
+                        <td><?php echo $cliente->getNombre() . ' ' . $cliente->getApellidoPaterno() . ' ' . $cliente->getApellidoMaterno(); ?></td>
+                        <td><?php echo $tipoDeCaso->getTipo(); ?></td>
+                        <td>
+                            <button class="btn btn-info" disabled>Ver Información</button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 
-    <footer>
+    <footer class="bg-dark text-white text-center py-3 mt-5">
         <p>&copy; 2023 Abogados Estudio Jurídico Ortiz y Asociados - Todos los derechos reservados</p>
     </footer>
 

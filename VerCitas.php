@@ -1,6 +1,8 @@
 <?php
 require_once 'model/Usuario.php';
 require_once 'dao/CitaDAO.php';
+require_once 'dao/UsuarioDAO.php';
+require_once 'dao/TipoDeCasoDAO.php';
 session_start();
 
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario']->getRol() != 'cliente') {
@@ -13,6 +15,9 @@ $base_url = 'http://localhost/INTEGRADOR/';
 
 $citaDAO = new CitaDAO();
 $citas = $citaDAO->obtenerCitasPorCliente($usuario->getId());
+
+$usuarioDAO = new UsuarioDAO();
+$tipoDeCasoDAO = new TipoDeCasoDAO();
 ?>
 
 <!DOCTYPE html>
@@ -63,11 +68,15 @@ $citas = $citaDAO->obtenerCitasPorCliente($usuario->getId());
             </thead>
             <tbody>
                 <?php foreach ($citas as $cita): ?>
+                    <?php
+                        $abogado = $usuarioDAO->obtenerPorId($cita->getAbogadoId());
+                        $tipoDeCaso = $tipoDeCasoDAO->obtenerPorId($cita->getTipoDeCasoId());
+                    ?>
                     <tr>
                         <td><?php echo $cita->getId(); ?></td>
                         <td><?php echo $cita->getHora(); ?></td>
-                        <td><?php echo $cita->getAbogadoId(); ?></td> <!-- Puedes cambiar esto para mostrar el nombre del abogado -->
-                        <td><?php echo $cita->getTipoDeCasoId(); ?></td> <!-- Puedes cambiar esto para mostrar el tipo de caso -->
+                        <td><?php echo $abogado->getNombre() . ' ' . $abogado->getApellidoPaterno() . ' ' . $abogado->getApellidoMaterno(); ?></td>
+                        <td><?php echo $tipoDeCaso->getTipo(); ?></td>
                         <td>
                             <a href="informacion.php?id=<?php echo $cita->getId(); ?>" class="btn btn-info">Ver Información</a>
                         </td>
@@ -77,7 +86,7 @@ $citas = $citaDAO->obtenerCitasPorCliente($usuario->getId());
         </table>
     </main>
 
-    <footer>
+    <footer class="bg-dark text-white text-center py-3 mt-3">
         <p>&copy; 2023 Abogados Estudio Jurídico Ortiz y Asociados - Todos los derechos reservados</p>
     </footer>
 

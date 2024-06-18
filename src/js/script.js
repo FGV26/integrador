@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initMap() {
-    const myLatLng = { lat: -12.0464, lng: -77.0428 }; // Coordenadas de Lima, Perú
+    const myLatLng = { lat: -12.154539363970722, lng: -76.97475567951984 }; // Coordenadas de tu ubicación
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 12,
         center: myLatLng,

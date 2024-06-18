@@ -173,7 +173,7 @@ if (isset($_SESSION['usuario'])) {
         </div>
     </section>
 
-    <!-- Comienza la sección de oficina -->
+    <!-- Mapa -->
     <section class="py-5">
         <div class="container">
             <h2 class="text-center" data-aos="fade-up">Nuestra Oficina</h2>

@@ -204,5 +204,5 @@ class UsuarioDAO
 
         return $result->num_rows > 0;
     }
+
 }
-?>

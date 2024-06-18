@@ -174,4 +174,29 @@ class CitaDAO
 
         return $citas;
     }
+
+    public function obtenerCitasPorAbogado($abogadoId)
+    {
+        $sql = "SELECT * FROM citas WHERE abogado_id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $abogadoId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $citas = [];
+        while ($row = $result->fetch_assoc()) {
+            $cita = new Cita();
+            $cita->setId($row['id']);
+            $cita->setClienteId($row['cliente_id']);
+            $cita->setAbogadoId($row['abogado_id']);
+            $cita->setFecha($row['fecha']);
+            $cita->setHora($row['hora']);
+            $cita->setTipoDeCasoId($row['tipo_de_caso_id']);
+            $cita->setMensaje($row['mensaje']);
+            $cita->setEstado($row['estado']);
+            $citas[] = $cita;
+        }
+
+        return $citas;
+    }
 }

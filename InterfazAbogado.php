@@ -8,16 +8,68 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] != 'abogado') {
 }
 
 $usuario = $_SESSION['usuario'];
+$base_url = 'http://localhost/INTEGRADOR/';
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
-    <title>Interfaz del Abogado</title>
-    <!-- Agrega aquí tus enlaces a CSS y otros recursos -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Abogado - Estudio Jurídico Ortiz y Asociados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/styles.css">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/admin.css">
 </head>
+
 <body>
-    <h1>Bienvenido, <?php echo $usuario->getNombre(); ?></h1>
-    <!-- Contenido específico del abogado -->
+    <header class="bg-dark text-white">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Estudio Jurídico Ortiz y Asociados</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="InterfazAbogado.php">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="PerfilAbogado.php">Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="VerCitasAbogado.php">Ver Citas</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="logout.php" class="btn btn-warning text-dark">Cerrar Sesión</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row flex-grow-1">
+            <div class="col-md-2 sidebar d-flex flex-column justify-content-center align-items-start">
+                <a href="#">Ver Citas</a>
+            </div>
+            <div class="col-md-10 main-content text-center d-flex flex-column justify-content-center align-items-center">
+                <div class="profile-img">
+                    <img src="<?php echo $base_url; ?>src/img/admin.png" alt="Administrador">
+                </div>
+                <h2>Bienvenido Abogado</h2>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Abogados Estudio Jurídico Ortiz y Asociados - Todos los derechos reservados</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 </body>
+
 </html>
