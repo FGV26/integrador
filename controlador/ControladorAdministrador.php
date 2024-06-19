@@ -26,27 +26,24 @@ switch ($accion) {
         var_dump($_POST, $_FILES);
 
         // Subir la imagen
-        $target_dir = "../src/img/";
-        $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $imagen = 'default.png'; // Imagen por defecto
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == UPLOAD_ERR_OK) {
+            $target_dir = "../src/img/";
+            $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-        echo "Proceso de agregar administrador iniciado.<br>";
-        echo "Target file: $target_file<br>";
+            echo "Proceso de agregar administrador iniciado.<br>";
+            echo "Target file: $target_file<br>";
 
-        // Verificar que es una imagen
-        if (!empty($_FILES["imagen"]["tmp_name"])) {
+            // Verificar que es una imagen
             $check = getimagesize($_FILES["imagen"]["tmp_name"]);
             if ($check !== false) {
                 if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file)) {
                     $imagen = basename($_FILES["imagen"]["name"]);
-                } else {
-                    $imagen = null;
                 }
-            } else {
-                $imagen = null;
             }
         } else {
-            $imagen = null;
+            echo "No se ha proporcionado una imagen o hubo un error en la subida. Usando imagen por defecto.<br>";
         }
 
         echo "Imagen: $imagen<br>";
@@ -73,6 +70,7 @@ switch ($accion) {
         }
         break;
 
+
     case 'editar':
         $id = $_POST['id'];
         $nombre = $_POST['nombre'];
@@ -88,28 +86,21 @@ switch ($accion) {
         var_dump($_POST, $_FILES);
 
         // Subir la imagen
-        if ($_FILES['imagen']['name']) {
+        $imagen = $_POST['imagen_actual'] ?: 'default.png'; // Usar imagen actual o por defecto
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == UPLOAD_ERR_OK) {
             $target_dir = "../src/img/";
             $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
             // Verificar que es una imagen
-            if (!empty($_FILES["imagen"]["tmp_name"])) {
-                $check = getimagesize($_FILES["imagen"]["tmp_name"]);
-                if ($check !== false) {
-                    if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file)) {
-                        $imagen = basename($_FILES["imagen"]["name"]);
-                    } else {
-                        $imagen = null;
-                    }
-                } else {
-                    $imagen = null;
+            $check = getimagesize($_FILES["imagen"]["tmp_name"]);
+            if ($check !== false) {
+                if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file)) {
+                    $imagen = basename($_FILES["imagen"]["name"]);
                 }
-            } else {
-                $imagen = null;
             }
         } else {
-            $imagen = $_POST['imagen_actual'];
+            echo "No se ha proporcionado una nueva imagen o hubo un error en la subida. Manteniendo la imagen actual o por defecto.<br>";
         }
 
         $administradorEditado = new Usuario();
@@ -135,6 +126,7 @@ switch ($accion) {
         }
         break;
 
+
     case 'eliminar':
         $id = $_GET['id'];
         if ($usuarioDAO->eliminar($id)) {
@@ -149,4 +141,3 @@ switch ($accion) {
         echo "Acción no reconocida.";
         break;
 }
-?>

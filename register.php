@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cliente->setUsuario($usuario);
     $cliente->setContraseña($contraseña);
     $cliente->setRol('cliente');
+    $cliente->setImagen('default.png');
 
     if ($usuarioDAO->crear($cliente)) {
         header('Location: login.php?registro=exitoso');
