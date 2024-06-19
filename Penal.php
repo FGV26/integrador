@@ -15,21 +15,19 @@ if (isset($_SESSION['usuario'])) {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio Jurídico Ortiz y Asociados</title>
+    <title>Estudio Jurídico Ortiz y Asociados - Derecho penal</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/styles.css">
-    <!-- AOS CSS ANIMACIONES CUANDO BAJAS EL SCROLL-->
+    <!-- AOS CSS ANIMACIONES CUANDO BAJAS EL SCROLL -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
-    <!-- Estilo de letra  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
@@ -42,7 +40,7 @@ if (isset($_SESSION['usuario'])) {
                 <div class="container">
                     <!-- Logo alineado a la izquierda -->
                     <a class="navbar-brand" href="<?php echo $base_url; ?>">
-                        <img src="<?php echo $base_url; ?>src/img/logo.png" alt="Estudio Jurídico Ortiz y Asociados" width="200">
+                        <img src="<?php echo $base_url; ?>src/img/penal.png" alt="Estudio Jurídico Ortiz y Asociados" width="200">
                     </a>
 
                     <!-- Menú de navegación centrado -->
@@ -59,10 +57,10 @@ if (isset($_SESSION['usuario'])) {
                                     Especialidades
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="especialidadesDropdown">
-                                    <li><a class="dropdown-item" href="Penal.php">Derecho Penal</a></li>
-                                    <li><a class="dropdown-item" href="Civil.php">Derecho Civil</a></li>
-                                    <li><a class="dropdown-item" href="Familiar.php">Derecho Familiar</a></li>
-                                    <li><a class="dropdown-item" href="Notarial.php">Derecho Notarial</a></li>
+                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Penal.php">Derecho Penal</a></li>
+                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Civil.php">Derecho Civil</a></li>
+                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Familiar.php">Derecho Familiar</a></li>
+                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Notarial.php">Derecho Notarial</a></li>
                                 </ul>
                             </li>
 
@@ -94,16 +92,23 @@ if (isset($_SESSION['usuario'])) {
                 </div>
             </nav>
         </div>
-    </header>
+    </header>s
 
-    <!-- Comienza el contenido principal -->
-    <main>
+   <!-- Comienza el contenido principal -->
+   <main>
         <!-- Comienza la sección de hero -->
         <section class="hero-section d-flex align-items-center">
             <div class="container text-white text-center">
-                <p>Somos una firma de Abogados</p>
-                <h2>Fundamenta la Calidad de Nuestro Servicio</h2>
+                <p>Abogados especialistas</p>
+                <h2>Derecho Penal</h2>
+                <p>Expertos en la materia</p>
+                <p>Abogados expertos en Derecho Penal con años de experiencia</p>
+                <p>en distintos casos.Te asesoraremos y acompañaremos a traves del proceso</p>
+                <p>que se presente como consecuencia de una imputación de un delito</p>
+
                 <a href="citas.php" class="btn btn-warning text-dark mt-3">Agendar Una Cita</a>
+                <a href="contacto.php" class="btn btn-warning text-dark mt-3">Llámanos</a>
+
             </div>
         </section>
 
@@ -117,8 +122,7 @@ if (isset($_SESSION['usuario'])) {
                                 <div class="mb-3">
                                     <i class="fas fa-check-circle fa-2x text-warning" data-aos-delay="200"></i>
                                 </div>
-                                <h5 class="card-title text-dark">Servicio Garantizado</h5>
-                                <p class="card-text text-dark">Nos apasiona los retos, asumimos el caso como nuestro y nos esforzamos para obtener los mejores resultados.</p>
+                                <p class="card-text text-dark">Te defenderemos de cualquier delito que se te haya imputado brindándote las garantias del caso.</p>
                             </div>
                         </div>
                     </div>
@@ -128,56 +132,36 @@ if (isset($_SESSION['usuario'])) {
                                 <div class="mb-3">
                                     <i class="fas fa-book fa-2x text-warning"></i>
                                 </div>
-                                <h5 class="card-title text-dark">Especialista en Derecho Penal, Civil, Familiar y Notarial</h5>
-                                <p class="card-text text-dark">Nuestro equipo destaca por su experiencia y formación profesional en el Perú.</p>
+                                <p class="card-text text-dark">Nos encargaremos de todo proceso penal que tenga, garantizándole efectividad y resultados</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4" data-aos="fade-right" data-aos-delay="500">
-                        <div class="card service-card border-0">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <i class="fas fa-headset fa-2x text-warning"></i>
-                                </div>
-                                <h5 class="card-title text-dark">Soporte Personalizado</h5>
-                                <p class="card-text text-dark">Atención legal personalizado, adaptamos nuestras soluciones a la estrategia y características de cada cliente.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </section>
     </main>
-
-    <!-- Comienza la sección de estadísticas -->
-    <section class="bg-dark py-5">
-        <div class="container">
-            <div class="row text-center text-white">
-                <div class="col-md-3" data-aos="fade-up">
-                    <h2 class="count" data-target="1200">0</h2>
-                    <p>Casos Atendidos</p>
-                </div>
-                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
-                    <h2 class="count" data-target="2000">0</h2>
-                    <p>Consultas Atendidas</p>
-                </div>
-                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-                    <h2 class="count" data-target="1">0</h2>
-                    <p>Años de Experiencia</p>
-                </div>
-                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-                    <h2 class="count" data-target="4">0</h2>
-                    <p>Especialidades</p>
+            </div>
+        </section>
+    </main>
+    <!-- Sección de Socio -->
+    <section class="socio-section bg-dark text-white py-5">
+        <div class="container text-center">
+            <h2>Socio</h2>
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-6">
+                    <div class="card bg-dark text-white border-0">
+                        <img src="src/img/image.png" class="card-img-top" alt="Rudy Ortiz Espino">
+                        <div class="card-body">
+                            <h5 class="card-title">Rudy Ortiz Espino</h5>
+                            <p class="card-text">CEO Y Socio Fundador</p>
+                            <div>
+                                <a href="#" class="text-white mx-2"><i class="fab fa-twitter fa-2x"></i></a>
+                                <a href="#" class="text-white mx-2"><i class="fab fa-facebook fa-2x"></i></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Mapa -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="text-center" data-aos="fade-up">Nuestra Oficina</h2>
-            <div id="map" style="height: 300px;" data-aos="fade-up" data-aos-delay="100"></div>
         </div>
     </section>
 
@@ -211,6 +195,7 @@ if (isset($_SESSION['usuario'])) {
                     </ul>
                 </div>
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <h5>Síguenos</h5>
                     <ul class="list-unstyled d-flex justify-content-center">
                         <li class="mx-2" data-aos="zoom-in" data-aos-delay="400"><a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a></li>
                         <li class="mx-2" data-aos="zoom-in" data-aos-delay="500"><a href="#" class="text-white"><i class="fab fa-twitter"></i></a></li>
@@ -229,7 +214,7 @@ if (isset($_SESSION['usuario'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
-    <script src="<?php echo $base_url; ?>src/js/script.js"></script>
+    <script src="src/js/script.js"></script>
     <!-- AOS JS -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script>

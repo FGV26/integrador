@@ -49,6 +49,7 @@ $tipoDeCasoDAO = new TipoDeCasoDAO();
                         </li>
                     </ul>
                 </div>
+                <a href="index.php" class="btn btn-warning text-dark me-2">Volver</a>
                 <a href="logout.php" class="btn btn-warning text-dark">Cerrar Sesión</a>
             </div>
         </nav>

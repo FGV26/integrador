@@ -48,7 +48,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
                 <a href="logout.php" class="btn btn-warning text-dark">Cerrar Sesión</a>
             </div>
         </nav>
-    </header>
+    </header>   
 
     <?php include 'PlantillaPerfil.php'; ?>
 
