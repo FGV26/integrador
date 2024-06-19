@@ -9,7 +9,7 @@ require_once '../dao/UsuarioDAO.php';
 echo "Datos recibidos:<br>";
 var_dump($_POST);
 var_dump($_GET);
-var_dump($_FILES);  // Añadir esto para ver los archivos subidos
+var_dump($_FILES); 
 
 $accion = $_POST['accion'] ?? $_GET['accion'] ?? '';
 
@@ -30,7 +30,7 @@ switch ($accion) {
         $rol = 'abogado';
 
         // Subir la imagen
-        $imagen = null;
+        $imagen = 'default.png'; // Imagen por defecto
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == UPLOAD_ERR_OK) {
             $target_dir = "../src/img/";
             $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
@@ -52,7 +52,7 @@ switch ($accion) {
                 echo "El archivo no es una imagen.<br>";
             }
         } else {
-            echo "No se ha proporcionado una imagen o hubo un error en la subida.<br>";
+            echo "No se ha proporcionado una imagen o hubo un error en la subida. Usando imagen por defecto.<br>";
         }
 
         $nuevoAbogado = new Usuario();
@@ -72,13 +72,14 @@ switch ($accion) {
         if ($usuarioDAO->crear($nuevoAbogado)) {
             echo "Abogado agregado correctamente.<br>";
             header('Location: ../gestion_abogados.php?success=agregar');
-            exit();  // Asegúrate de terminar el script después de la redirección
+            exit();  
         } else {
             echo "Error al agregar el abogado.<br>";
             header('Location: ../gestion_abogados.php?error=agregar');
             exit();
         }
         break;
+
 
     case 'editar':
         echo "Datos del formulario para editar:<br>";
@@ -96,7 +97,7 @@ switch ($accion) {
         $rol = 'abogado';
 
         // Subir la imagen
-        $imagen = $_POST['imagen_actual'];
+        $imagen = $_POST['imagen_actual'] ?: 'default.png'; // Usar imagen actual o por defecto
         if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == UPLOAD_ERR_OK) {
             $target_dir = "../src/img/";
             $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
@@ -118,7 +119,7 @@ switch ($accion) {
                 echo "El archivo no es una imagen.<br>";
             }
         } else {
-            echo "No se ha proporcionado una nueva imagen o hubo un error en la subida.<br>";
+            echo "No se ha proporcionado una nueva imagen o hubo un error en la subida. Manteniendo la imagen actual o por defecto.<br>";
         }
 
         $abogadoEditado = new Usuario();
@@ -147,6 +148,7 @@ switch ($accion) {
         }
         break;
 
+
     case 'eliminar':
         echo "Datos de eliminación:<br>";
         var_dump($_GET);
@@ -168,4 +170,3 @@ switch ($accion) {
         header('Location: ../gestion_abogados.php?error=accion_no_reconocida');
         exit();
 }
-?>
