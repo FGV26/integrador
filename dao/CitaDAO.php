@@ -72,7 +72,7 @@ class CitaDAO
 
         return $citas;
     }
-
+    
     public function obtenerPorId($id)
     {
         $sql = "SELECT * FROM citas WHERE id = ?";
@@ -102,8 +102,23 @@ class CitaDAO
     {
         $sql = "UPDATE citas SET cliente_id = ?, abogado_id = ?, fecha = ?, hora = ?, tipo_de_caso_id = ?, mensaje = ?, estado = ? WHERE id = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('iisssssi', $cita->getClienteId(), $cita->getAbogadoId(), $cita->getFecha(), $cita->getHora(), $cita->getTipoDeCasoId(), $cita->getMensaje(), $cita->getEstado(), $cita->getId());
-        return $stmt->execute();
+
+        $clienteId = $cita->getClienteId();
+        $abogadoId = $cita->getAbogadoId();
+        $fecha = $cita->getFecha();
+        $hora = $cita->getHora();
+        $tipoDeCasoId = $cita->getTipoDeCasoId();
+        $mensaje = $cita->getMensaje();
+        $estado = $cita->getEstado();
+        $id = $cita->getId();
+
+        $stmt->bind_param('iisssssi', $clienteId, $abogadoId, $fecha, $hora, $tipoDeCasoId, $mensaje, $estado, $id);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function eliminar($id)
@@ -198,5 +213,91 @@ class CitaDAO
         }
 
         return $citas;
+    }
+
+    public function cancelarCita($id)
+    {
+        $sql = "UPDATE citas SET estado = 'cancelada' WHERE id = ? AND estado = 'pendiente'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
+    }
+
+    public function obtenerCitasActivasPorCliente($clienteId)
+    {
+        $sql = "SELECT * FROM citas WHERE cliente_id = ? AND estado IN ('pendiente', 'confirmada')";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $clienteId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $citas = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $cita = new Cita();
+            $cita->setId($row['id']);
+            $cita->setClienteId($row['cliente_id']);
+            $cita->setAbogadoId($row['abogado_id']);
+            $cita->setFecha($row['fecha']);
+            $cita->setHora($row['hora']);
+            $cita->setTipoDeCasoId($row['tipo_de_caso_id']);
+            $cita->setMensaje($row['mensaje']);
+            $cita->setEstado($row['estado']);
+            $citas[] = $cita;
+        }
+
+        return $citas;
+    }
+
+    public function obtenerCitasActivasPorAbogado($abogadoId)
+    {
+        $sql = "SELECT * FROM citas WHERE abogado_id = ? AND estado IN ('pendiente', 'confirmada')";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $abogadoId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $citas = [];
+        while ($row = $result->fetch_assoc()) {
+            $cita = new Cita();
+            $cita->setId($row['id']);
+            $cita->setClienteId($row['cliente_id']);
+            $cita->setAbogadoId($row['abogado_id']);
+            $cita->setFecha($row['fecha']);
+            $cita->setHora($row['hora']);
+            $cita->setTipoDeCasoId($row['tipo_de_caso_id']);
+            $cita->setMensaje($row['mensaje']);
+            $cita->setEstado($row['estado']);
+            $citas[] = $cita;
+        }
+
+        return $citas;
+    }
+
+    public function confirmarCita($id)
+    {
+        $cita = $this->obtenerPorId($id);
+        if ($cita) {
+            $cita->setEstado('confirmada');
+            return $this->actualizar($cita);
+        }
+        return false;
+    }
+
+    public function terminarCita($id)
+    {
+        $cita = $this->obtenerPorId($id);
+        if ($cita) {
+            $cita->setEstado('terminado');
+            return $this->actualizar($cita);
+        }
+        return false;
+    }
+
+    public function cancelarCitaPorAbogado($id)
+    {
+        $sql = "UPDATE citas SET estado = 'cancelada' WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param('i', $id);
+        return $stmt->execute();
     }
 }

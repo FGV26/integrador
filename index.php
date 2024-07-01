@@ -5,12 +5,11 @@ session_start();
 
 $base_url = 'http://localhost/INTEGRADOR/';
 
-// Validar que solo los clientes puedan acceder al index
 if (isset($_SESSION['usuario'])) {
     $usuario = $_SESSION['usuario'];
     $rol = $usuario->getRol();
     if ($rol !== 'cliente') {
-        header('Location: logout.php'); // Redirigir a logout si no es cliente
+        header('Location: logout.php'); 
         exit();
     }
 }

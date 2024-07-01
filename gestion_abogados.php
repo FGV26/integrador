@@ -21,8 +21,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Abogados - Estudio Jurídico Ortiz y Asociados</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/admin.css">
-    <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/styles.css">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/admin.css?v=<?php echo time(); ?>">
 </head>
 
 <body>
@@ -57,7 +56,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
         </nav>
     </header>
 
-    <div class="container" style="margin-top: 70px;">
+    <main class="container pt-5" >
         <h1 class="mt-4">Gestión de Abogados</h1>
         <button type="button" class="btn btn-info mb-3" data-bs-toggle="modal" data-bs-target="#agregarAbogadoModal">Agregar Abogado</button>
 
@@ -94,7 +93,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
+    </main>
 
     <!-- Modal para agregar abogado -->
     <div class="modal fade" id="agregarAbogadoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -195,7 +194,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
                             <input type="file" name="imagen" id="editImagen" class="form-control">
                         </div>
                         <input type="hidden" name="imagen_actual" id="editImagenActual">
-                        <input type="hidden" name="accion" value="editar"> <!-- Asegúrate de tener esto -->
+                        <input type="hidden" name="accion" value="editar">
                         <button type="submit" class="btn btn-success">Editar</button>
                     </form>
                 </div>
@@ -203,8 +202,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
         </div>
     </div>
 
-
-    <footer>
+    <footer class="footer bg-dark text-white text-center py-3">
         <p>&copy; 2023 Abogados Estudio Jurídico Ortiz y Asociados - Todos los derechos reservados</p>
     </footer>
 

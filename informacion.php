@@ -27,6 +27,14 @@ if (!$cita) {
 
 $usuarioDAO = new UsuarioDAO();
 $abogado = $usuarioDAO->obtenerPorId($cita->getAbogadoId());
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_cancel'])) {
+    if ($cita->getEstado() == 'pendiente') {
+        $citaDAO->cancelarCita($cita->getId());
+        header('Location: VerCitas.php');
+        exit();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -39,6 +47,12 @@ $abogado = $usuarioDAO->obtenerPorId($cita->getAbogadoId());
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/styles.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/admin.css">
+    <style>
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
 </head>
 <body>
     <header class="bg-dark text-white">
@@ -73,13 +87,41 @@ $abogado = $usuarioDAO->obtenerPorId($cita->getAbogadoId());
                 <p class="card-text"><strong>Abogado:</strong> <?php echo $abogado->getNombre() . ' ' . $abogado->getApellidoPaterno(); ?></p>
                 <p class="card-text"><strong>Fecha:</strong> <?php echo $cita->getFecha(); ?></p>
                 <p class="card-text"><strong>Hora:</strong> <?php echo $cita->getHora(); ?></p>
-                <p class="card-text"><strong>Tipo de Caso:</strong> <?php echo $cita->getTipoDeCasoId(); ?></p> <!-- Puedes cambiar esto para mostrar el tipo de caso -->
+                <p class="card-text"><strong>Tipo de Caso:</strong> <?php echo $cita->getTipoDeCasoId(); ?></p> <!-- Cambiar para mostrar el nombre del tipo de caso -->
                 <p class="card-text"><strong>Mensaje:</strong> <?php echo $cita->getMensaje(); ?></p>
-                <a href="VerCitas.php" class="btn btn-secondary">Volver</a>
-                <button class="btn btn-danger">Cancelar Cita</button>
+                <div class="button-group">
+                    <a href="VerCitas.php" class="btn btn-secondary">Volver</a>
+                    <?php if ($cita->getEstado() == 'pendiente'): ?>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancelar Cita</button>
+                    <?php else: ?>
+                        <p class="text-success">Su cita ha sido aceptada</p>
+                    <?php endif; ?>
+                </div>
             </div>
-         </div>
+        </div>
     </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cancelModalLabel">Confirmar Cancelación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas cancelar esta cita?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <form method="POST" style="display:inline;">
+                        <input type="hidden" name="confirm_cancel" value="1">
+                        <button type="submit" class="btn btn-danger">Sí, cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <p>&copy; 2023 Abogados Estudio Jurídico Ortiz y Asociados - Todos los derechos reservados</p>
@@ -89,3 +131,4 @@ $abogado = $usuarioDAO->obtenerPorId($cita->getAbogadoId());
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
+

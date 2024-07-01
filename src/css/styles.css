@@ -67,8 +67,6 @@ body {
 
 
 
-
-
 /* SOBREESCRITURAS DE LAS CLASES DE BOOSTRAP */ 
 
 .bg-dark {
@@ -106,4 +104,9 @@ body {
 [data-aos][data-aos].aos-animate {
     opacity: 1;
     transform: translate(0, 0);
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
 }

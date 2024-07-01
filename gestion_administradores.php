@@ -21,11 +21,10 @@ $base_url = 'http://localhost/INTEGRADOR/';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Administradores - Estudio Jurídico Ortiz y Asociados</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/admin.css">
-    <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/styles.css">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/admin.css?v=<?php echo time(); ?>">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header class="bg-dark text-white">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
@@ -57,7 +56,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
         </nav>
     </header>
 
-    <div class="container" style="margin-top: 70px;">
+    <main class="container flex-grow-1 pt-5">
         <h1 class="mt-4">Gestión de Administradores</h1>
         <button type="button" class="btn btn-info mb-3" data-bs-toggle="modal" data-bs-target="#agregarAdministradorModal">Agregar Administrador</button>
 
@@ -94,7 +93,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
+    </main>
 
     <!-- Modal para agregar administrador -->
     <div class="modal fade" id="agregarAdministradorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -203,7 +202,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
         </div>
     </div>
 
-    <footer>
+    <footer class="footer bg-dark text-white text-center py-3 mt-3">
         <p>&copy; 2023 Abogados Estudio Jurídico Ortiz y Asociados - Todos los derechos reservados</p>
     </footer>
 

@@ -4,7 +4,7 @@ class Cita {
     private $cliente_id;
     private $abogado_id;
     private $fecha;
-    private $hora; // Nueva columna para la hora
+    private $hora;
     private $tipo_de_caso_id;
     private $mensaje;
     private $estado;
@@ -42,11 +42,11 @@ class Cita {
         $this->fecha = $fecha;
     }
 
-    public function getHora() { // Getter para la nueva columna
+    public function getHora() { 
         return $this->hora;
     }
 
-    public function setHora($hora) { // Setter para la nueva columna
+    public function setHora($hora) { 
         $this->hora = $hora;
     }
 

@@ -1,4 +1,8 @@
-document.getElementById('fecha').setAttribute('min', new Date().toISOString().split('T')[0]);
+// Configurar la fecha mínima para ser un día después de hoy
+let today = new Date();
+today.setDate(today.getDate() + 1);
+let minDate = today.toISOString().split('T')[0];
+document.getElementById('fecha').setAttribute('min', minDate);
 
 document.getElementById('fecha').addEventListener('change', function () {
     const fecha = this.value;
@@ -16,7 +20,8 @@ document.getElementById('fecha').addEventListener('change', function () {
                     horaSelect.appendChild(option);
                 });
                 horaSelect.disabled = false;
-            });
+            })
+            .catch(error => console.error('Error fetching hours:', error));
     } else {
         horaSelect.innerHTML = '<option value="">Seleccione un horario</option>';
         horaSelect.disabled = true;

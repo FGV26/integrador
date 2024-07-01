@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $clienteId = $_POST['cliente_id'];
     $abogadoId = $_POST['abogado_id'];
     $fecha = $_POST['fecha'];
-    $hora = $_POST['hora']; // Nueva hora
+    $hora = $_POST['hora']; 
     $tipoDeCasoId = $_POST['tipo_de_caso_id'];
     $mensaje = $_POST['mensaje'];
     $estado = 'pendiente';
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cita->setClienteId($clienteId);
     $cita->setAbogadoId($abogadoId);
     $cita->setFecha($fecha);
-    $cita->setHora($hora); // Nueva hora
+    $cita->setHora($hora); 
     $cita->setTipoDeCasoId($tipoDeCasoId);
     $cita->setMensaje($mensaje);
     $cita->setEstado($estado);
