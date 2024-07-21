@@ -20,7 +20,7 @@ if (isset($_SESSION['usuario'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio Jurídico Ortiz y Asociados - Derecho Notarial</title>
+    <title>Estudio Jurídico Ortiz y Asociados - Derecho Familiar</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CSS -->
@@ -40,7 +40,7 @@ if (isset($_SESSION['usuario'])) {
                 <div class="container">
                     <!-- Logo alineado a la izquierda -->
                     <a class="navbar-brand" href="<?php echo $base_url; ?>">
-                        <img src="<?php echo $base_url; ?>src/img/civil.png" alt="Estudio Jurídico Ortiz y Asociados" width="200">
+                        <img src="<?php echo $base_url; ?>src/img/notarial.png" alt="Estudio Jurídico Ortiz y Asociados" width="200">
                     </a>
 
                     <!-- Menú de navegación centrado -->
@@ -98,18 +98,30 @@ if (isset($_SESSION['usuario'])) {
    <main>
         <!-- Comienza la sección de hero -->
         <section class="hero-section d-flex align-items-center">
-            <div class="container text-white text-center">
-                <p>Abogados especialistas</p>
-                <h2>Derecho Notarial</h2>
-                <p>Expertos en la materia</p>
-                <p>Abogados expertos en Derecho Notarial con años de experiencia</p>
-                <p>en distintos casos.Te asesoraremos y acompañaremos a traves del proceso</p>
-                <p>que se presente como consecuencia de una imputación de un delito</p>
 
+            <div class="header-txt1" style=" width: 300px; ">
+                            <h1 style="font-size: 36px;">ABOGADOS ESPECIALISTAS</h1>
+                            <p style="line-height: 200% "  class="text-V">            
+                            <h1 style="font-size: 36px;">DERECHO NOTARIAL</h1>
+                Expertos en la materia
+                Abogados expertos en Derecho Notarial 
+                con años de experiencia
+                en distintos casos.Te asesoraremos
+                 y acompañaremos a traves del proceso
+                que se presente como consecuencia de 
+                una imputación de un delito. </p>
+                             </div>
+                        <div class="header-img">
+                            <img src="src/img/notarial.png" alt="" width="550px" height="350">
+                        </div>
+                        <h1>
+                            <p1>
+                            <div class="header-txt1" style=" width: 300px; ">
                 <a href="citas.php" class="btn btn-warning text-dark mt-3">Agendar Una Cita</a>
                 <a href="contacto.php" class="btn btn-warning text-dark mt-3">Llámanos</a>
-
-            </div>
+                        </p1>
+                        </h1>
+                    </div>
         </section>
 
         <!-- Comienza la sección de servicios -->
@@ -144,26 +156,28 @@ if (isset($_SESSION['usuario'])) {
         </section>
     </main>
     <!-- Sección de Socio -->
+ 
     <section class="socio-section bg-dark text-white py-5">
         <div class="container text-center">
-            <h2>Socio</h2>
+
+        <h2>DERECHO NOTARIAL</h2>
             <div class="row justify-content-center mt-4">
                 <div class="col-md-6">
-                    <div class="card bg-dark text-white border-0">
-                        <img src="src/img/image.png" class="card-img-top" alt="Rudy Ortiz Espino">
-                        <div class="card-body">
-                            <h5 class="card-title">Rudy Ortiz Espino</h5>
-                            <p class="card-text">CEO Y Socio Fundador</p>
-                            <div>
-                                <a href="#" class="text-white mx-2"><i class="fab fa-twitter fa-2x"></i></a>
-                                <a href="#" class="text-white mx-2"><i class="fab fa-facebook fa-2x"></i></a>
-                            </div>
-                        </div>
-                    </div>
+              <p>  El Derecho Notarial es una rama del derecho</p> 
+              <p>  que se ocupa de la autemticación de documentos y actos jurídicos.</p> 
+              <p>  Los notarios son funcionarios públicos que actuan como intermediarios</p> 
+              <p> imparciales en la formalización de contratos, testamentos,</p> 
+              <p> poderes, escriturasy otros documentos legales. La</p>
+              <p>finalidad del Derecho Notarial es dar fé pública, dotando de</p>
+              <p>autenticidad, seguridad y eficacia a los actos y documentos que</p>
+              <p>requieren una formalización especial para su validez y </p> 
+                <p> oponibilidad a terceros. </p> 
                 </div>
             </div>
         </div>
-    </section>
+        </div>
+       
+    
 
     <!-- Comienza el footer -->
     <footer class="bg-dark text-white py-4">
@@ -180,10 +194,10 @@ if (isset($_SESSION['usuario'])) {
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
                     <h5>Servicios Legales</h5>
                     <ul class="list-unstyled">
-                        <li>Derecho Penal</li>
-                        <li>Derecho Civil</li>
-                        <li>Derecho Familiar</li>
-                        <li>Derecho Notarial</li>
+                    <a href="penal.php">Derecho Penal</a>
+                    <a href="Civil.php">Derecho Civil</a>
+                    <a href="Familiar.php">Derecho Familiar</a>
+                    <a href="Notarial.php">Derecho Notarial</a>
                     </ul>
                 </div>
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
@@ -224,3 +238,4 @@ if (isset($_SESSION['usuario'])) {
     </script>
 </body>
 </html>
+
