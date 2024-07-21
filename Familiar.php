@@ -25,7 +25,7 @@ if (isset($_SESSION['usuario'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/styles.css">
+    <link rel="stylesheet" href="http://localhost/INTEGRADOR/src/css/styles.css">
     <!-- AOS CSS ANIMACIONES CUANDO BAJAS EL SCROLL -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,56 +39,43 @@ if (isset($_SESSION['usuario'])) {
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div class="container">
                     <!-- Logo alineado a la izquierda -->
-                    <a class="navbar-brand" href="<?php echo $base_url; ?>">
-                        <img src="<?php echo $base_url; ?>src/img/civil.png" alt="Estudio Jurídico Ortiz y Asociados" width="200">
+                    <a class="navbar-brand" href="http://localhost/INTEGRADOR/">
+                        <img src="http://localhost/INTEGRADOR/src/img/penal.png" alt="Estudio Jurídico Ortiz y Asociados" width="200">
                     </a>
 
                     <!-- Menú de navegación centrado -->
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="<?php echo $base_url; ?>">Inicio</a>
+                                <a class="nav-link active" aria-current="page" href="http://localhost/INTEGRADOR/">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?php echo $base_url; ?>firma.php">Nuestra Firma</a>
+                                <a class="nav-link" href="http://localhost/INTEGRADOR/firma.php">Nuestra Firma</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="especialidadesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Especialidades
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="especialidadesDropdown">
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Penal.php">Derecho Penal</a></li>
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Civil.php">Derecho Civil</a></li>
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Familiar.php">Derecho Familiar</a></li>
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Notarial.php">Derecho Notarial</a></li>
+                                <li><a class="dropdown-item" href="http://localhost/INTEGRADOR/Penal.php">Derecho Penal</a></li>
+                                <li><a class="dropdown-item" href="http://localhost/INTEGRADOR/Civil.php">Derecho Civil</a></li>
+                                <li><a class="dropdown-item" href="http://localhost/INTEGRADOR/Familiar.php">Derecho Familiar</a></li>
+                                <li><a class="dropdown-item" href="http://localhost/INTEGRADOR/Notarial.php">Derecho Notarial</a></li>
                                 </ul>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="<?php echo $base_url; ?>contacto.php">Contacto</a>
+                                <a class="nav-link" href="http://localhost/INTEGRADOR/contacto.php">Contacto</a>
                             </li>
                         </ul>
                     </div>
 
                     <!-- Menú de usuario alineado a la derecha -->
                     <ul class="navbar-nav ms-auto">
-                        <?php if (isset($_SESSION['usuario'])) : ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" href="#" id="dropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Bienvenido, <?php echo $_SESSION['usuario']->getNombre(); ?>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
-                                    <li><a class="dropdown-item" href="<?php echo $base_url; ?>PerfilCliente.php">Perfil</a></li>
-                                    <li><a class="dropdown-item" href="<?php echo $base_url; ?>VerCitas.php">Ver Citas</a></li>
-                                    <li><a class="dropdown-item" href="<?php echo $base_url; ?>logout.php">Cerrar Sesión</a></li>
-                                </ul>
+                                                    <li class="nav-item">
+                                <a href="http://localhost/INTEGRADOR/login.php" class="btn btn-warning text-dark">¡Registrate!</a>
                             </li>
-                        <?php else : ?>
-                            <li class="nav-item">
-                                <a href="<?php echo $base_url; ?>login.php" class="btn btn-warning text-dark">¡Registrate!</a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
+                                            </ul>
                 </div>
             </nav>
         </div>
@@ -98,18 +85,30 @@ if (isset($_SESSION['usuario'])) {
    <main>
         <!-- Comienza la sección de hero -->
         <section class="hero-section d-flex align-items-center">
-            <div class="container text-white text-center">
-                <p>Abogados especialistas</p>
-                <h2>Derecho Familiar</h2>
-                <p>Expertos en la materia</p>
-                <p>Abogados expertos en Derecho Familiar con años de experiencia</p>
-                <p>en distintos casos.Te asesoraremos y acompañaremos a traves del proceso</p>
-                <p>que se presente como consecuencia de una imputación de un delito</p>
 
+            <div class="header-txt1" style=" width: 300px; ">
+                            <h1 style="font-size: 36px;">ABOGADOS ESPECIALISTAS</h1>
+                            <p style="line-height: 200% "  class="text-V">            
+                            <h1 style="font-size: 36px;">DERECHO FAMILIAR</h1>
+                Expertos en la materia
+                Abogados expertos en Derecho Familiar 
+                con años de experiencia
+                en distintos casos.Te asesoraremos
+                 y acompañaremos a traves del proceso
+                que se presente como consecuencia de 
+                una imputación de un delito. </p>
+                             </div>
+                        <div class="header-img">
+                            <img src="src/img/familiar.jpg" alt="" width="550px" height="350">
+                        </div>
+                        <h1>
+                            <p1>
+                            <div class="header-txt1" style=" width: 300px; ">
                 <a href="citas.php" class="btn btn-warning text-dark mt-3">Agendar Una Cita</a>
                 <a href="contacto.php" class="btn btn-warning text-dark mt-3">Llámanos</a>
-
-            </div>
+                        </p1>
+                        </h1>
+                    </div>
         </section>
 
         <!-- Comienza la sección de servicios -->
@@ -144,26 +143,27 @@ if (isset($_SESSION['usuario'])) {
         </section>
     </main>
     <!-- Sección de Socio -->
+ 
     <section class="socio-section bg-dark text-white py-5">
         <div class="container text-center">
-            <h2>Socio</h2>
+
+        <h2>DERECHO FAMILIAR</h2>
             <div class="row justify-content-center mt-4">
                 <div class="col-md-6">
-                    <div class="card bg-dark text-white border-0">
-                        <img src="src/img/image.png" class="card-img-top" alt="Rudy Ortiz Espino">
-                        <div class="card-body">
-                            <h5 class="card-title">Rudy Ortiz Espino</h5>
-                            <p class="card-text">CEO Y Socio Fundador</p>
-                            <div>
-                                <a href="#" class="text-white mx-2"><i class="fab fa-twitter fa-2x"></i></a>
-                                <a href="#" class="text-white mx-2"><i class="fab fa-facebook fa-2x"></i></a>
-                            </div>
-                        </div>
-                    </div>
+              <p>  El Derecho Familiar es una especialización del derecho</p> 
+              <p> Civil que se encarga de regular las relaciones jurídicas</p> 
+              <p>  derivadas de la familia, como el matrimonio, el divorcio,</p> 
+              <p> la filiación la patria potestad, la tutela y la adopcion. Su</p> 
+              <p> objetivo es proteger los derechos e intereses de los miembros de</p>
+              <p>la familia, garantizando el bienestar y la estabilidad de las </p>
+              <p>relaciones familiares, asi como la protección de los menores</p> 
+                <p> y personas dependientes.</p> 
                 </div>
             </div>
         </div>
-    </section>
+        </div>
+       
+    
 
     <!-- Comienza el footer -->
     <footer class="bg-dark text-white py-4">
@@ -180,10 +180,10 @@ if (isset($_SESSION['usuario'])) {
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
                     <h5>Servicios Legales</h5>
                     <ul class="list-unstyled">
-                        <li>Derecho Penal</li>
-                        <li>Derecho Civil</li>
-                        <li>Derecho Familiar</li>
-                        <li>Derecho Notarial</li>
+                    <a href="penal.php">Derecho Penal</a>
+                    <a href="Civil.php">Derecho Civil</a>
+                    <a href="Familiar.php">Derecho Familiar</a>
+                    <a href="Notarial.php">Derecho Notarial</a>
                     </ul>
                 </div>
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
