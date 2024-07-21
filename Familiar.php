@@ -15,12 +15,14 @@ if (isset($_SESSION['usuario'])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio Jurídico Ortiz y Asociados - Derecho Familiar</title>
+    <title>Derecho Familiar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CSS -->
@@ -31,10 +33,60 @@ if (isset($_SESSION['usuario'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-</head>
-<body>
+    
+    <style>
+        .flip-container {
+            perspective: 1000px;
+        }
 
-    <header class="bg-dark text-white">
+        .flip-card {
+            width: 100%;
+            height: 200px; /* Ajusta la altura según tus necesidades */
+            position: relative;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flip-card:hover {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flip-card-front {
+            background-color: #FFD433; /* Color amarillo en Tailwind */
+            color: white;
+        }
+
+        .flip-card-back {
+            background-color: #f97316; /* Color naranja en Tailwind */
+            color: white;
+            transform: rotateY(180deg);
+            padding: 1rem;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body class="bg-black text-white">
+<header class="bg-dark text-white">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div class="container">
@@ -92,82 +144,72 @@ if (isset($_SESSION['usuario'])) {
                 </div>
             </nav>
         </div>
-    </header>s
+    </header>
 
-   <!-- Comienza el contenido principal -->
-   <main>
-        <!-- Comienza la sección de hero -->
-        <section class="hero-section d-flex align-items-center">
-            <div class="container text-white text-center">
-                <p>Abogados especialistas</p>
-                <h2>Derecho Familiar</h2>
-                <p>Expertos en la materia</p>
-                <p>Abogados expertos en Derecho Familiar con años de experiencia</p>
-                <p>en distintos casos.Te asesoraremos y acompañaremos a traves del proceso</p>
-                <p>que se presente como consecuencia de una imputación de un delito</p>
-
-                <a href="citas.php" class="btn btn-warning text-dark mt-3">Agendar Una Cita</a>
-                <a href="contacto.php" class="btn btn-warning text-dark mt-3">Llámanos</a>
-
-            </div>
-        </section>
-
-        <!-- Comienza la sección de servicios -->
-        <section class="bg-dark py-5">
-            <div class="container">
-                <div class="row text-center text-white">
-                    <div class="col-md-4" data-aos="fade-right">
-                        <div class="card service-card border-0">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <i class="fas fa-check-circle fa-2x text-warning" data-aos-delay="200"></i>
-                                </div>
-                                <p class="card-text text-dark">Te defenderemos de cualquier delito que se te haya imputado brindándote las garantias del caso.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4" data-aos="fade-right" data-aos-delay="300">
-                        <div class="card service-card border-0">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <i class="fas fa-book fa-2x text-warning"></i>
-                                </div>
-                                <p class="card-text text-dark">Nos encargaremos de todo proceso penal que tenga, garantizándole efectividad y resultados</p>
-                            </div>
-                        </div>
-                    </div>
-
-            </div>
-        </section>
-    </main>
-            </div>
-        </section>
-    </main>
-    <!-- Sección de Socio -->
-    <section class="socio-section bg-dark text-white py-5">
-        <div class="container text-center">
-            <h2>Socio</h2>
-            <div class="row justify-content-center mt-4">
-                <div class="col-md-6">
-                    <div class="card bg-dark text-white border-0">
-                        <img src="src/img/image.png" class="card-img-top" alt="Rudy Ortiz Espino">
-                        <div class="card-body">
-                            <h5 class="card-title">Rudy Ortiz Espino</h5>
-                            <p class="card-text">CEO Y Socio Fundador</p>
-                            <div>
-                                <a href="#" class="text-white mx-2"><i class="fab fa-twitter fa-2x"></i></a>
-                                <a href="#" class="text-white mx-2"><i class="fab fa-facebook fa-2x"></i></a>
-                            </div>
-                        </div>
-                    </div>
+    <main class="max-w-7xl mx-auto p-4">
+        <section class="flex flex-col md:flex-row" data-aos="fade-up">
+            <div class="md:w-2/3 p-8">
+                <h1 class="text-4xl font-bold">Derecho FAMILIAR</h1>
+                <p class="text-xl mt-2">Expertos en la Materia</p>
+                <p class="mt-4">Abogados expertos en Derecho Familiar con años de experiencia en distintos casos. Te asesoraremos y acompañaremos a través del proceso que se presente como consecuencia de una imputación de un delito.</p>
+                <div class="mt-6 space-x-4">
+                    <a href="citas.php" class="bg-white text-black px-4 py-2 rounded-md">Agendar Una Cita</a>
+                    <a href="tel:+51991259680" class="bg-white text-black px-4 py-2 rounded-md">Llámanos</a>
                 </div>
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front p-4 rounded-md">
+                                    <i class="fas fa-gavel text-5xl"></i>
+                                </div>
+                                <div class="flip-card-back rounded-md">
+                                    <p class="text-center">Te defenderemos de cualquier delito que se te haya imputado brindándote las garantías del caso.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-container">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front p-4 rounded-md">
+                                    <i class="fas fa-balance-scale text-5xl"></i>
+                                </div>
+                                <div class="flip-card-back rounded-md">
+                                    <p class="text-center">Nos encargaremos de todo proceso penal que tenga, garantizándole efectividad y resultados.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-        </div>
-    </section>
+            <div class="md:w-1/3 p-8">
+                <img src="src/img/abogado familiar.jpg" alt="Abogado con traje sosteniendo documentos">
+            </div>
+        </section>
+        <section class="flex flex-col md:flex-row items-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="md:w-2/3">
+                <h2 class="text-3xl font-bold">Derecho Familiar</h2>
+                <p class="mt-4">El Derecho Familiar es una especialización del Derecho Civil que se encarga de regular las relaciones jurídicas derivadas de la familia, como el matrimonio, el divorcio, la filiación, la patria potestad, la tutela y la adopción. Su objetivo es proteger los derechos e intereses de los miembros de la familia, garantizando el bienestar y la estabilidad de las relaciones familiares, así como la protección de los menores y personas dependientes.</p>
+            </div>
+            <div class="md:w-1/3 flex flex-col items-center text-center mt-4 md:mt-0">
+                <ul class="space-y-2">
+                    <li><i class="fas fa-check-circle text-yellow-500"></i> Divorcio y separación</li>
+                    <li><i class="fas fa-check-circle text-yellow-500"></i> Violencia familiar</li>
+                    <li><i class="fas fa-check-circle text-yellow-500"></i> Patria potestad y tutela</li>
+                    <li><i class="fas fa-check-circle text-yellow-500"></i> Divorcio y separación</li>
+                </ul>
+            </div>
+        </section>
+        <br><br><br>
+
+    </main>
+   
+
 
     <!-- Comienza el footer -->
     <footer class="bg-dark text-white py-4">
-        <div class="container">
+        <div class="container text-center">
             <div class="row">
                 <div class="col-md-3" data-aos="fade-up">
                     <h5>Abogados Estudio Jurídico Ortiz y Asociados</h5>
@@ -209,6 +251,8 @@ if (isset($_SESSION['usuario'])) {
             </div>
         </div>
     </footer>
+    <!-- Termina el footer -->
+
 
     <!-- Bootstrap JS, Popper.js, and jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
@@ -222,5 +266,7 @@ if (isset($_SESSION['usuario'])) {
             once: false // Permitir animaciones en cada scroll sin necesidad de actualizar
         });
     </script>
+
 </body>
 </html>
+
