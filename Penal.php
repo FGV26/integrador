@@ -98,18 +98,30 @@ if (isset($_SESSION['usuario'])) {
    <main>
         <!-- Comienza la sección de hero -->
         <section class="hero-section d-flex align-items-center">
-            <div class="container text-white text-center">
-                <p>Abogados especialistas</p>
-                <h2>Derecho Penal</h2>
-                <p>Expertos en la materia</p>
-                <p>Abogados expertos en Derecho Penal con años de experiencia</p>
-                <p>en distintos casos.Te asesoraremos y acompañaremos a traves del proceso</p>
-                <p>que se presente como consecuencia de una imputación de un delito</p>
 
+            <div class="header-txt1" style=" width: 300px; ">
+                            <h1 style="font-size: 36px;">ABOGADOS ESPECIALISTAS</h1>
+                            <p style="line-height: 200% "  class="text-V">            
+                            <h1 style="font-size: 36px;">DERECHO PENAL</h1>
+                Expertos en la materia
+                Abogados expertos en Derecho Penal 
+                con años de experiencia
+                en distintos casos.Te asesoraremos
+                 y acompañaremos a traves del proceso
+                que se presente como consecuencia de 
+                una imputación de un delito. </p>
+                             </div>
+                        <div class="header-img">
+                            <img src="src/img/penal.png" alt="" width="550px" height="350">
+                        </div>
+                        <h1>
+                            <p1>
+                            <div class="header-txt1" style=" width: 300px; ">
                 <a href="citas.php" class="btn btn-warning text-dark mt-3">Agendar Una Cita</a>
                 <a href="contacto.php" class="btn btn-warning text-dark mt-3">Llámanos</a>
-
-            </div>
+                        </p1>
+                        </h1>
+                    </div>
         </section>
 
         <!-- Comienza la sección de servicios -->
@@ -144,26 +156,24 @@ if (isset($_SESSION['usuario'])) {
         </section>
     </main>
     <!-- Sección de Socio -->
+ 
     <section class="socio-section bg-dark text-white py-5">
         <div class="container text-center">
-            <h2>Socio</h2>
+
+        <h2>DERECHO PENAL</h2>
             <div class="row justify-content-center mt-4">
                 <div class="col-md-6">
-                    <div class="card bg-dark text-white border-0">
-                        <img src="src/img/image.png" class="card-img-top" alt="Rudy Ortiz Espino">
-                        <div class="card-body">
-                            <h5 class="card-title">Rudy Ortiz Espino</h5>
-                            <p class="card-text">CEO Y Socio Fundador</p>
-                            <div>
-                                <a href="#" class="text-white mx-2"><i class="fab fa-twitter fa-2x"></i></a>
-                                <a href="#" class="text-white mx-2"><i class="fab fa-facebook fa-2x"></i></a>
-                            </div>
-                        </div>
-                    </div>
+              <p>  Es la rama del derecho que sanciona y prohíbe conductas</p> 
+              <p>  humanas antijurídicas contenidas en el código penal y/o</p> 
+              <p>  normas especiales,con la finalidad de salvaguardar el </p> 
+              <p>  Estado de Derecho, el orden y la disciplina en los </p> 
+              <p>   habitantes de la soberanía Estatal.</p> 
                 </div>
             </div>
         </div>
-    </section>
+        </div>
+       
+    
 
     <!-- Comienza el footer -->
     <footer class="bg-dark text-white py-4">
@@ -180,10 +190,10 @@ if (isset($_SESSION['usuario'])) {
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
                     <h5>Servicios Legales</h5>
                     <ul class="list-unstyled">
-                        <li>Derecho Penal</li>
-                        <li>Derecho Civil</li>
-                        <li>Derecho Familiar</li>
-                        <li>Derecho Notarial</li>
+                    <a href="penal.php">Derecho Penal</a>
+                    <a href="Civil.php">Derecho Civil</a>
+                    <a href="Familiar.php">Derecho Familiar</a>
+                    <a href="Notarial.php">Derecho Notarial</a>
                     </ul>
                 </div>
                 <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
