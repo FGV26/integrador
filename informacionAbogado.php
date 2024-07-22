@@ -43,9 +43,14 @@ $tipoDeCaso = $tipoDeCasoDAO->obtenerPorId($cita->getTipoDeCasoId());
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/styles.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/admin.css">
+    <style>
+        .flex-fill {
+            flex: 1 1 auto;
+        }
+    </style>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header class="bg-dark text-white">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
@@ -71,7 +76,7 @@ $tipoDeCaso = $tipoDeCasoDAO->obtenerPorId($cita->getTipoDeCasoId());
         </nav>
     </header>
 
-    <main class="container pt-5 mt-5">
+    <main class="container flex-fill pt-5 mt-5">
         <h1>Datos de la Cita</h1>
         <div class="card">
             <div class="card-body">
@@ -103,7 +108,7 @@ $tipoDeCaso = $tipoDeCasoDAO->obtenerPorId($cita->getTipoDeCasoId());
         </div>
     </main>
 
-    <footer>
+    <footer class="footer bg-dark text-white text-center py-3 mt-3">
         <p>&copy; 2023 Abogados Estudio Jurídico Ortiz y Asociados - Todos los derechos reservados</p>
     </footer>
 

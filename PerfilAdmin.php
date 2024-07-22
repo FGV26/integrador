@@ -47,7 +47,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
                             <a class="nav-link" href="gestion_administradores.php">Gestión de Administradores</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Gestión de Citas</a>
+                            <a class="nav-link" href="gestionCitas.php">Gestión de Citas</a>
                         </li>
                     </ul>
                 </div>
@@ -56,9 +56,10 @@ $base_url = 'http://localhost/INTEGRADOR/';
         </nav>
     </header>
 
+
     <?php include 'PlantillaPerfil.php'; ?>
 
-    <footer>
+    <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2023 Abogados Estudio Jurídico Ortiz y Asociados - Todos los derechos reservados</p>
     </footer>
 

@@ -72,7 +72,7 @@ class CitaDAO
 
         return $citas;
     }
-    
+
     public function obtenerPorId($id)
     {
         $sql = "SELECT * FROM citas WHERE id = ?";
@@ -300,4 +300,5 @@ class CitaDAO
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
+
 }

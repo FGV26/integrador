@@ -4,11 +4,23 @@ body {
     padding: 0;
     box-sizing: border-box;
 }
+
+
 .navbar-brand {
     font-size: 1.25rem;
 }
 .nav-item a {
     font-size: 1rem;
+}
+
+.letra a{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.letra a:hover{
+    color: #d9a407;
+    background-color: transparent;
 }
 
 .container{

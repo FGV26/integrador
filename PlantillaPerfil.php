@@ -42,8 +42,8 @@ $base_url = 'http://localhost/INTEGRADOR/';
         }
     </style>
 </head>
-<body>
-    <div class="container" style="margin-top: 70px;">
+<body class="d-flex flex-column min-vh-100">
+    <div class="container flex-grow-1 pt-5" style="margin-top: 50px;">
         <div class="row">
             <div class="col-md-4 text-center">
                 <div class="form-group">

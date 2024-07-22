@@ -21,6 +21,8 @@ $perdidaDAO = new PerdidaDAO();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $citaId = $_POST['cita_id'];
+    $fechaActual = date('Y-m-d');
+
     if (isset($_POST['aceptar'])) {
         $resultado = $citaDAO->confirmarCita($citaId);
         header("Location: ../informacionAbogado.php?id=$citaId");
@@ -30,7 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($resultado) {
             $ingreso = new Ingreso();
             $ingreso->setCitaId($citaId);
-            $ingreso->setMonto(100.00);
+            $montoIngreso = rand(100, 250); 
+            $ingreso->setMonto($montoIngreso);
+            $ingreso->setFecha($fechaActual); 
             $ingresoDAO->crear($ingreso);
         }
         header("Location: ../informacionAbogado.php?id=$citaId");
@@ -40,10 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($resultado) {
             $perdida = new Perdida();
             $perdida->setCitaId($citaId);
-            $perdida->setMonto(0.00);
+            $montoPerdida = rand(100, 250);
+            $perdida->setMonto($montoPerdida);
+            $perdida->setFecha($fechaActual); 
             $perdidaDAO->crear($perdida);
         }
         header("Location: ../informacionAbogado.php?id=$citaId");
         exit();
     }
 }
+?>

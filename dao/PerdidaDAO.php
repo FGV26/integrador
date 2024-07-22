@@ -49,5 +49,6 @@ class PerdidaDAO
 
         return $perdidas;
     }
+
 }
 ?>

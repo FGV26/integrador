@@ -31,7 +31,7 @@ $tipoDeCasoDAO = new TipoDeCasoDAO();
     <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/styles.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/admin.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header class="bg-dark text-white">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container-fluid">
@@ -57,7 +57,7 @@ $tipoDeCasoDAO = new TipoDeCasoDAO();
         </nav>
     </header>
 
-    <div class="container mt-5 pt-5">
+    <div class="container flex-grow-1 pt-5" style="margin-top: 50px;">
         <h1>Citas Programadas</h1>
         <table class="table">
             <thead>

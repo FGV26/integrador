@@ -21,6 +21,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Administradores - Estudio Jurídico Ortiz y Asociados</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/styles.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/admin.css?v=<?php echo time(); ?>">
 </head>
 
@@ -47,7 +48,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
                             <a class="nav-link" href="gestion_administradores.php">Gestión de Administradores</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Gestión de Citas</a>
+                            <a class="nav-link" href="gestionCitas.php">Gestión de Citas</a>
                         </li>
                     </ul>
                 </div>
@@ -55,6 +56,7 @@ $base_url = 'http://localhost/INTEGRADOR/';
             </div>
         </nav>
     </header>
+
 
     <main class="container flex-grow-1 pt-5">
         <h1 class="mt-4">Gestión de Administradores</h1>

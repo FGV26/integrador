@@ -48,6 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_cancel'])) {
     <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/styles.css">
     <link rel="stylesheet" href="<?php echo $base_url; ?>src/css/admin.css">
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
         .button-group {
             display: flex;
             gap: 10px;
@@ -87,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_cancel'])) {
                 <p class="card-text"><strong>Abogado:</strong> <?php echo $abogado->getNombre() . ' ' . $abogado->getApellidoPaterno(); ?></p>
                 <p class="card-text"><strong>Fecha:</strong> <?php echo $cita->getFecha(); ?></p>
                 <p class="card-text"><strong>Hora:</strong> <?php echo $cita->getHora(); ?></p>
-                <p class="card-text"><strong>Tipo de Caso:</strong> <?php echo $cita->getTipoDeCasoId(); ?></p> <!-- Cambiar para mostrar el nombre del tipo de caso -->
+                <p class="card-text"><strong>Tipo de Caso:</strong> <?php echo $cita->getTipoDeCasoId(); ?></p>
                 <p class="card-text"><strong>Mensaje:</strong> <?php echo $cita->getMensaje(); ?></p>
                 <div class="button-group">
                     <a href="VerCitas.php" class="btn btn-secondary">Volver</a>
@@ -123,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_cancel'])) {
         </div>
     </div>
 
-    <footer>
+    <footer class="footer bg-dark text-white text-center py-3">
         <p>&copy; 2023 Abogados Estudio Jurídico Ortiz y Asociados - Todos los derechos reservados</p>
     </footer>
 

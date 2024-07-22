@@ -96,5 +96,6 @@ class IngresoDAO {
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
+
 }
 ?>
