@@ -40,7 +40,7 @@ if (isset($_SESSION['usuario'])) {
                 <div class="container">
                     <!-- Logo alineado a la izquierda -->
                     <a class="navbar-brand" href="<?php echo $base_url; ?>">
-                        <img src="<?php echo $base_url; ?>src/img/logo.png" alt="Estudio Jurídico Ortiz y Asociados" width="200">
+                        <img src="<?php echo $base_url; ?>src/img/logo.jpg" alt="Estudio Jurídico Ortiz y Asociados" width="200">
                     </a>
 
                     <!-- Menú de navegación centrado -->
@@ -108,32 +108,48 @@ if (isset($_SESSION['usuario'])) {
                         <p>Somos un estudio integrado por profesionales con amplia experiencia en el sector público y privado y con un alto nivel de especialización en Derecho Civil, Penal, Familiar y Notarial, cuyas asesorías y patrocinios basados en la credibilidad y eficiencia determinan la certera toma de decisiones y la defensa idónea de los intereses de nuestros clientes.</p>
                     </div>
                     <div class="col-md-4" data-aos="fade-left">
-                        <img src="src/img/abogadosFirma.png" alt="Nuestro Estudio">
+                        <img src="src/img/abogadosFirma.png" alt="" width="550px" height="350px">
                     </div>
                 </div>
                 <!-- Div para "Misión, Visión y Valores" -->
                 <div class="row text-center mt-5">
-                    <div class="col-md-4" data-aos="fade-up">
-                        <div class="card">
+                    <div class="col-md-4" data-aos="fade-right">
+                    <div class="card service-card border-0">
                             <div class="card-body">
-                                <h3>Misión</h3>
-                                <p>Prestar nuestros servicios en observancia de altos estándares de calidad y con valor agregado, dirigidos a la prevención y solución de conflictos de forma integral en beneficio de nuestros clientes para su óptimo desempeño en el ámbito comercial y personal.</p>
+                                <div class="mb-3">
+                                <i class="fas fa-check-circle fa-2x text-warning" data-aos-delay="200"></i>
+                                </div> <h5 class="card-title text-dark"> 
+                                <h5 class="card-title text-dark">Servicio Garantizado</h5>
+                                <p class="card-text text-dark">Prestar nuestros servicios en observancia de altos estándares de calidad y con valor agregado, dirigidos a la prevención y solución de conflictos de forma integral en beneficio de nuestros clientes para su óptimo desempeño en el ámbito comercial y personal.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="card">
+                    <div class="row text-center mt-5">
+
+
+
+                    <div class="col-md-4" data-aos="fade-right">
+
+
+                    <div class="card service-card border-0">
                             <div class="card-body">
-                                <h3>Visión</h3>
-                                <p>Ser líderes en el mercado de servicios legales especializados dentro del Perú, mediante el trabajo en equipo y la satisfacción de las requerimientos de nuestros clientes en tiempo oportuno.</p>
+                                <div class="mb-3">
+                                <i class="fas fa-check-circle fa-2x text-warning" data-aos-delay="200"></i>
+                            </div> 
+                            <h5 class="card-title text-dark">Visión</h5>
+                            <p class="card-text text-dark">Ser líderes en el mercado de servicios legales especializados dentro del Perú, mediante el trabajo en equipo y la satisfacción de las requerimientos de nuestros clientes en tiempo oportuno.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                         <div class="card">
                             <div class="card-body">
-                                <h3>Valores</h3>
-                                <p>Trabajo en equipo, ética, lealtad, compromiso, igualdad, liderazgo, integridad, y profesionalidad.</p>
+
+                            <div class="mb-3">
+                                <i class="fas fa-check-circle fa-2x text-warning" data-aos-delay="200"></i>
+                            </div> 
+                            <h5 class="card-title text-dark">Valores</h5>
+                            <p class="card-text text-dark">Trabajo en equipo, ética, lealtad, compromiso, igualdad, liderazgo, integridad, y profesionalidad.</p>
                             </div>
                         </div>
                     </div>
