@@ -104,11 +104,13 @@ if (isset($_SESSION['usuario'])) {
             <div class="container">
                 <div class="row">
                     <div class="col-md-8" data-aos="fade-right">
+                       
+
                         <h2>Nuestro Estudio</h2>
                         <p>Somos un estudio integrado por profesionales con amplia experiencia en el sector público y privado y con un alto nivel de especialización en Derecho Civil, Penal, Familiar y Notarial, cuyas asesorías y patrocinios basados en la credibilidad y eficiencia determinan la certera toma de decisiones y la defensa idónea de los intereses de nuestros clientes.</p>
                     </div>
                     <div class="col-md-4" data-aos="fade-left">
-                        <img src="src/img/abogadosFirma.png" alt="" width="550px" height="350px">
+                        <img src="src/img/abogadosFirma.png" alt="" width="450px" height="200px">
                     </div>
                 </div>
                 <!-- Div para "Misión, Visión y Valores" -->
@@ -124,13 +126,7 @@ if (isset($_SESSION['usuario'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="row text-center mt-5">
-
-
-
-                    <div class="col-md-4" data-aos="fade-right">
-
-
+                    <div class="col-md-4" data-aos="fade-up">
                     <div class="card service-card border-0">
                             <div class="card-body">
                                 <div class="mb-3">
@@ -141,8 +137,11 @@ if (isset($_SESSION['usuario'])) {
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                         <div class="card">
+                        <div class="card service-card border-0">
+
                             <div class="card-body">
 
                             <div class="mb-3">
@@ -238,3 +237,4 @@ if (isset($_SESSION['usuario'])) {
     </script>
 </body>
 </html>
+
