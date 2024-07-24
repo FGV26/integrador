@@ -40,7 +40,7 @@ if (isset($_SESSION['usuario'])) {
                 <div class="container">
                     <!-- Logo alineado a la izquierda -->
                     <a class="navbar-brand" href="<?php echo $base_url; ?>">
-                        <img src="<?php echo $base_url; ?>src/img/logo.png" alt="Estudio Jurídico Ortiz y Asociados" width="200">
+                        <img src="<?php echo $base_url; ?>src/img/logo.jpg" alt="Estudio Jurídico Ortiz y Asociados" width="200">
                     </a>
 
                     <!-- Menú de navegación centrado -->
