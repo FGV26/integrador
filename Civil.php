@@ -101,11 +101,11 @@ if (isset($_SESSION['usuario'])) {
                 <div class="container">
                     <!-- Logo alineado a la izquierda -->
                     <a class="navbar-brand" href="<?php echo $base_url; ?>">
-                        <img src="<?php echo $base_url; ?>src/img/civil.png" alt="Estudio Jurídico Ortiz y Asociados" width="200">
+                        <img src="<?php echo $base_url; ?>src/img/logo.jpg" alt="Estudio Jurídico Ortiz y Asociados" width="200">
                     </a>
 
-                    <!-- Menú de navegación centrado -->
-                    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                      <!-- Menú de navegación centrado -->
+                      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="<?php echo $base_url; ?>">Inicio</a>
@@ -118,10 +118,10 @@ if (isset($_SESSION['usuario'])) {
                                     Especialidades
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="especialidadesDropdown">
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Penal.php">Derecho Penal</a></li>
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Civil.php">Derecho Civil</a></li>
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Familiar.php">Derecho Familiar</a></li>
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Notarial.php">Derecho Notarial</a></li>
+                                    <li><a class="dropdown-item" href="Penal.php">Derecho Penal</a></li>
+                                    <li><a class="dropdown-item" href="Civil.php">Derecho Civil</a></li>
+                                    <li><a class="dropdown-item" href="Familiar.php">Derecho Familiar</a></li>
+                                    <li><a class="dropdown-item" href="Notarial.php">Derecho Notarial</a></li>
                                 </ul>
                             </li>
 
@@ -130,6 +130,7 @@ if (isset($_SESSION['usuario'])) {
                             </li>
                         </ul>
                     </div>
+
 
                     <!-- Menú de usuario alineado a la derecha -->
                     <ul class="navbar-nav ms-auto">
