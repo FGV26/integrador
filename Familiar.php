@@ -115,13 +115,13 @@ if (isset($_SESSION['usuario'])) {
 
 </head>
 <body class="bg-black text-white">
-    <header class="bg-dark text-white">
+<header class="bg-dark text-white">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div class="container">
                     <!-- Logo alineado a la izquierda -->
                     <a class="navbar-brand" href="<?php echo $base_url; ?>">
-                        <img src="<?php echo $base_url; ?>src/img/civil.png" alt="Estudio Jurídico Ortiz y Asociados" width="200">
+                        <img src="<?php echo $base_url; ?>src/img/logo.jpg" alt="Estudio Jurídico Ortiz y Asociados" width="200">
                     </a>
 
                     <!-- Menú de navegación centrado -->
@@ -138,10 +138,10 @@ if (isset($_SESSION['usuario'])) {
                                     Especialidades
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="especialidadesDropdown">
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Penal.php">Derecho Penal</a></li>
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Civil.php">Derecho Civil</a></li>
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Familiar.php">Derecho Familiar</a></li>
-                                <li><a class="dropdown-item" href="<?php echo $base_url; ?>Notarial.php">Derecho Notarial</a></li>
+                                    <li><a class="dropdown-item" href="Penal.php">Derecho Penal</a></li>
+                                    <li><a class="dropdown-item" href="Civil.php">Derecho Civil</a></li>
+                                    <li><a class="dropdown-item" href="Familiar.php">Derecho Familiar</a></li>
+                                    <li><a class="dropdown-item" href="Notarial.php">Derecho Notarial</a></li>
                                 </ul>
                             </li>
 
@@ -360,4 +360,6 @@ if (isset($_SESSION['usuario'])) {
 
 </body>
 </html>
+
+
 
