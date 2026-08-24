@@ -1,0 +1,68 @@
+# Entorno local y herramientas del editor/asistente
+.codex/
+.agents/
+.vscode/
+.idea/
+
+# Variables y credenciales locales
+.env
+.env.*
+!.env.example
+
+# Dependencias y caches
+node_modules/
+vendor/
+.cache/
+.phpunit.cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos temporales del sistema
+*.tmp
+*.temp
+*.bak
+*.old
+*.swp
+*.swo
+Thumbs.db
+Desktop.ini
+
+# Logs y reportes locales
+*.log
+logs/
+
+# Backups y dumps de base de datos
+*.dump
+*.bak.sql
+outputs/backups/
+
+# Documentacion, entregables y archivos generados fuera del sistema
+outputs/
+*.docx
+*.xlsx
+*.xls
+*.pptx
+*.pdf
+*.ndjson
+
+# Backups/importaciones IA o laboratorio
+storage/imports/
+*.csv
+*.tsv
+
+# Datos locales de Docker/MySQL
+docker/mysql/data/
+mysql-data/
+
+# Subidas o archivos runtime locales
+storage/uploads/
+storage/tmp/
+storage/cache/
+
+# Archivos comprimidos generados localmente
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
