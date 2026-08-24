@@ -1,0 +1,88 @@
+services:
+  app:
+    build: .
+    container_name: integrador_app
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: estudiojuridico
+      DB_USER: integrador
+      DB_PASSWORD: integrador_pass
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_PUBLIC_ENDPOINT: http://localhost:9000
+      MINIO_ACCESS_KEY: integrador_minio
+      MINIO_SECRET_KEY: integrador_minio_pass
+      MINIO_BUCKET: integrador-images
+      GOOGLE_MAPS_API_KEY:
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+      minio:
+        condition: service_started
+
+  db:
+    image: mysql:8.0
+    container_name: integrador_db
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: estudiojuridico
+      MYSQL_USER: integrador
+      MYSQL_PASSWORD: integrador_pass
+      MYSQL_ROOT_PASSWORD: root_pass
+    volumes:
+      - integrador_mysql_data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot_pass"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  phpmyadmin:
+    image: phpmyadmin:5.2-apache
+    container_name: integrador_phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root_pass
+    depends_on:
+      db:
+        condition: service_healthy
+
+  minio:
+    image: minio/minio:latest
+    container_name: integrador_minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: integrador_minio
+      MINIO_ROOT_PASSWORD: integrador_minio_pass
+    volumes:
+      - integrador_minio_data:/data
+
+  minio-setup:
+    image: minio/mc:latest
+    container_name: integrador_minio_setup
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      until mc alias set local http://minio:9000 integrador_minio integrador_minio_pass; do sleep 2; done;
+      mc mb -p local/integrador-images || true;
+      mc anonymous set download local/integrador-images;
+      "
+
+volumes:
+  integrador_mysql_data:
+  integrador_minio_data:
