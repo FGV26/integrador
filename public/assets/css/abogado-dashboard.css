@@ -12,6 +12,10 @@ body.abogado-dashboard-page .profile-header {
   position: static;
 }
 
+body.is-drawer-open {
+  overflow: hidden;
+}
+
 .abogado-dashboard-main {
   flex: 1 0 auto;
   padding: 2.2rem 0 1.4rem;
@@ -572,6 +576,11 @@ body.abogado-dashboard-page .profile-header {
   color: #166534;
 }
 
+.abogado-status--en_atencion {
+  background: rgba(37, 99, 235, 0.12);
+  color: #1d4ed8;
+}
+
 .abogado-status--terminado,
 .abogado-status--cancelada {
   background: rgba(17, 24, 33, 0.1);
@@ -590,6 +599,11 @@ body.abogado-dashboard-page .profile-header {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(320px, 380px);
   gap: 1.5rem;
+  align-items: stretch;
+}
+
+.abogado-card--detail {
+  height: 100%;
 }
 
 .abogado-detail-card {
@@ -617,9 +631,56 @@ body.abogado-dashboard-page .profile-header {
   border: 1px solid rgba(17, 24, 33, 0.06);
 }
 
+.abogado-notes--compact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44px;
+  gap: 1rem;
+  align-items: center;
+}
+
 .abogado-notes p {
   margin: 0;
   line-height: 1.8;
+}
+
+.abogado-note-arrow,
+.abogado-drawer-close {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(201, 168, 76, 0.26);
+  border-radius: 14px;
+  background: #ffffff;
+  color: #8b6811;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.abogado-note-arrow:hover {
+  transform: translateX(3px);
+  border-color: #c9a84c;
+  background: rgba(201, 168, 76, 0.12);
+}
+
+.abogado-detail-box--document strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.abogado-detail-box--document i {
+  font-size: 1.05rem;
+}
+
+.abogado-detail-box--document.is-attached strong,
+.abogado-detail-box--document.is-attached i {
+  color: #15803d;
+}
+
+.abogado-detail-box--document.is-missing strong,
+.abogado-detail-box--document.is-missing i {
+  color: #b42318;
 }
 
 .abogado-detail-header {
@@ -647,7 +708,9 @@ body.abogado-dashboard-page .profile-header {
 .abogado-briefing {
   position: sticky;
   top: 110px;
-  align-self: start;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
   padding: 1.6rem;
   border-radius: 26px;
   border: 1px solid rgba(17, 24, 33, 0.08);
@@ -670,6 +733,10 @@ body.abogado-dashboard-page .profile-header {
   margin-top: 1.2rem;
   display: grid;
   gap: 0.8rem;
+}
+
+.abogado-briefing__actions form {
+  margin: 0;
 }
 
 .abogado-briefing__note {
@@ -704,6 +771,132 @@ body.abogado-dashboard-page .profile-header {
   border-color: rgba(180, 35, 24, 0.18);
   background: rgba(180, 35, 24, 0.08);
   color: #7d2019;
+}
+
+.abogado-side-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+
+.abogado-side-drawer.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.abogado-side-drawer__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(12, 16, 22, 0.28);
+  backdrop-filter: blur(1px);
+}
+
+.abogado-side-drawer__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(470px, calc(100vw - 28px));
+  height: 100%;
+  padding: 30px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.97);
+  border-left: 1px solid rgba(17, 24, 33, 0.08);
+  box-shadow: -26px 0 60px rgba(17, 24, 33, 0.18);
+  transform: translateX(100%);
+  transition: transform 0.26s ease;
+}
+
+.abogado-side-drawer.is-open .abogado-side-drawer__panel {
+  transform: translateX(0);
+}
+
+.abogado-side-drawer__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.abogado-side-drawer__header h2 {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  font-size: 2.1rem;
+  line-height: 1.08;
+}
+
+.abogado-drawer-note {
+  padding: 1.1rem;
+  border: 1px solid rgba(17, 24, 33, 0.08);
+  border-radius: 18px;
+  background: #fbfaf7;
+}
+
+.abogado-drawer-note span {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: #8b6811;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.abogado-drawer-note p {
+  margin: 0;
+  color: #6d6558;
+  font-size: 0.98rem;
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+
+.abogado-drawer-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.abogado-drawer-form label {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.abogado-drawer-form label > span {
+  color: #6d6558;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.abogado-drawer-form input,
+.abogado-drawer-form select,
+.abogado-drawer-form textarea {
+  width: 100%;
+  border: 1px solid rgba(17, 24, 33, 0.14);
+  border-radius: 14px;
+  background: #ffffff;
+  color: #111821;
+  padding: 0.85rem 0.95rem;
+  font: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.abogado-drawer-form textarea {
+  resize: vertical;
+  min-height: 126px;
+}
+
+.abogado-drawer-form input:focus,
+.abogado-drawer-form select:focus,
+.abogado-drawer-form textarea:focus {
+  border-color: #c9a84c;
+  box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.13);
 }
 
 .abogado-log,
@@ -754,6 +947,154 @@ body.abogado-dashboard-page .profile-header {
   line-height: 1.55;
 }
 
+.abogado-attention-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.abogado-attention-timer {
+  min-width: 220px;
+  padding: 1.15rem;
+  border-radius: 22px;
+  background: #f7f4ed;
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  text-align: center;
+}
+
+.abogado-attention-timer span,
+.abogado-attention-timer small {
+  display: block;
+  color: #6d6558;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.abogado-attention-timer strong {
+  display: block;
+  margin: 0.25rem 0;
+  font-family: "Playfair Display", serif;
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.abogado-attention-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 390px);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.abogado-attention-close {
+  top: 1rem;
+}
+
+.abogado-document-list,
+.abogado-note-list,
+.abogado-history-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.abogado-document,
+.abogado-note-item,
+.abogado-history-item {
+  padding: 1rem 1.05rem;
+  border-radius: 18px;
+  background: #f7f4ed;
+  border: 1px solid rgba(17, 24, 33, 0.06);
+}
+
+.abogado-document {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #16181d;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.abogado-document i {
+  color: #b42318;
+  font-size: 1.4rem;
+}
+
+.abogado-note-form,
+.abogado-close-form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.abogado-note-form textarea,
+.abogado-close-form textarea {
+  width: 100%;
+  border: 1px solid rgba(17, 24, 33, 0.14);
+  border-radius: 16px;
+  padding: 0.95rem 1rem;
+  resize: vertical;
+  font: inherit;
+  color: #16181d;
+}
+
+.abogado-close-form label span {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: #6d6558;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 800;
+}
+
+.abogado-check {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 14px;
+  background: #f7f4ed;
+  border: 1px solid rgba(17, 24, 33, 0.06);
+}
+
+.abogado-check span {
+  margin: 0;
+  color: #16181d;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 0.95rem;
+}
+
+.abogado-note-item span {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: #7a5f18;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.abogado-note-item p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.abogado-history-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.abogado-history-item strong,
+.abogado-history-item span:not(.abogado-status) {
+  display: block;
+}
+
+.abogado-history-item span:not(.abogado-status) {
+  margin-top: 0.25rem;
+  color: #6d6558;
+}
+
 @media (max-width: 1080px) {
   .abogado-panel-top,
   .abogado-panel-metrics,
@@ -762,6 +1103,7 @@ body.abogado-dashboard-page .profile-header {
   .abogado-stats,
   .abogado-overview,
   .abogado-detail-layout,
+  .abogado-attention-layout,
   .abogado-detail-grid,
   .abogado-highlight__grid {
     grid-template-columns: 1fr;
@@ -777,7 +1119,9 @@ body.abogado-dashboard-page .profile-header {
   .abogado-quick-actions,
   .abogado-widget__header,
   .abogado-log__item,
-  .abogado-queue__item {
+  .abogado-queue__item,
+  .abogado-attention-hero,
+  .abogado-history-item {
     flex-direction: column;
     align-items: stretch;
   }

@@ -17,6 +17,7 @@ require_once __DIR__ . '/config/layout.php';
 
 $citaDAO = new CitaDAO();
 $citas = $citaDAO->obtenerCitasActivasPorCliente($usuario->getId());
+$avisosCliente = $citaDAO->obtenerAvisosCliente($usuario->getId());
 
 $usuarioDAO = new UsuarioDAO();
 $tipoDeCasoDAO = new TipoDeCasoDAO();
@@ -65,6 +66,37 @@ foreach ($citas as $cita) {
                     <i class="bi bi-info-circle"></i>
                     <span><?php echo h($mensaje); ?></span>
                 </div>
+            <?php endif; ?>
+
+            <?php if (!empty($avisosCliente)) : ?>
+                <section class="cliente-dashboard-card cliente-notice-panel" aria-label="Avisos de citas">
+                    <div class="cliente-dashboard-card__head">
+                        <div>
+                            <span class="cliente-dashboard-eyebrow">Avisos recientes</span>
+                            <h1 class="cliente-dashboard-title cliente-dashboard-title--section">Cambios en tus citas</h1>
+                        </div>
+                    </div>
+                    <div class="cliente-notice-list">
+                        <?php foreach ($avisosCliente as $aviso) : ?>
+                            <article class="cliente-notice cliente-notice--<?php echo h($aviso['tipo']); ?>">
+                                <div class="cliente-notice__icon">
+                                    <i class="bi <?php echo $aviso['tipo'] === 'reajuste' ? 'bi-calendar2-week' : 'bi-x-circle'; ?>"></i>
+                                </div>
+                                <div class="cliente-notice__body">
+                                    <span><?php echo h($aviso['tipo'] === 'reajuste' ? 'Cita reajustada' : 'Cita cancelada'); ?></span>
+                                    <strong><?php echo h($aviso['titulo']); ?></strong>
+                                    <p><?php echo nl2br(h($aviso['mensaje'])); ?></p>
+                                </div>
+                                <form method="POST" action="<?php echo $base_url; ?>Controladores/ControladorAvisoCliente.php" class="cliente-notice__close">
+                                    <input type="hidden" name="aviso_id" value="<?php echo (int) $aviso['id']; ?>">
+                                    <button type="submit" aria-label="Cerrar aviso">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </form>
+                            </article>
+                        <?php endforeach; ?>
+                    </div>
+                </section>
             <?php endif; ?>
 
             <section class="citas-summary-grid">

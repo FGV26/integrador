@@ -54,7 +54,7 @@ function h($value)
                 <h1 class="abogado-title">Citas asignadas</h1>
                 <p class="abogado-subtitle">
                     Revisa tus atenciones activas, prioriza por fecha y entra al detalle para aceptar,
-                    terminar o cancelar una cita segun el flujo del estudio.
+                    iniciar o continuar una cita segun el flujo del estudio.
                 </p>
             </section>
 
@@ -110,9 +110,9 @@ function h($value)
                                         </td>
                                         <td>
                                             <div class="abogado-table__actions">
-                                                <a href="<?php echo $base_url; ?>Abogado/DetalleCita.php?id=<?php echo (int) $cita->getId(); ?>" class="abogado-button abogado-button--ghost">
-                                                    <i class="bi bi-journal-text"></i>
-                                                    <span>Revisar</span>
+                                                <a href="<?php echo $base_url . ($estado === 'en_atencion' ? 'Abogado/AtencionCita.php' : 'Abogado/DetalleCita.php'); ?>?id=<?php echo (int) $cita->getId(); ?>" class="abogado-button abogado-button--ghost">
+                                                    <i class="bi <?php echo $estado === 'en_atencion' ? 'bi-folder2-open' : 'bi-journal-text'; ?>"></i>
+                                                    <span><?php echo $estado === 'en_atencion' ? 'Atender' : 'Revisar'; ?></span>
                                                 </a>
                                             </div>
                                         </td>

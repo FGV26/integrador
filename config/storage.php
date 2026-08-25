@@ -11,6 +11,7 @@ function storage_internal_endpoint() {
     return rtrim(getenv('MINIO_ENDPOINT') ?: 'http://minio:9000', '/');
 }
 
+
 function storage_image_url($image, $baseUrl) {
     if (!$image || $image === 'default.png') {
         return rtrim($baseUrl, '/') . '/assets/img/default.png';
@@ -26,6 +27,7 @@ function storage_image_url($image, $baseUrl) {
 
     return rtrim($baseUrl, '/') . '/assets/img/' . $image;
 }
+
 
 function storage_upload_user_image($file, $folder = 'users') {
     if (!isset($file) || ($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {

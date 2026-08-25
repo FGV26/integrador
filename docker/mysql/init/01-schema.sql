@@ -79,12 +79,17 @@ CREATE TABLE IF NOT EXISTS citas (
   hora TIME NOT NULL,
   tipo_de_caso_id INT NOT NULL,
   mensaje TEXT NOT NULL,
-  estado ENUM('pendiente', 'confirmada', 'cancelada', 'terminado') NOT NULL DEFAULT 'pendiente',
+  estado ENUM('pendiente', 'confirmada', 'en_atencion', 'cancelada', 'terminado') NOT NULL DEFAULT 'pendiente',
   fecha_solicitud DATETIME NULL,
   fecha_confirmacion DATETIME NULL,
   fecha_atencion DATETIME NULL,
+  hora_inicio_at DATETIME NULL,
+  hora_fin_at DATETIME NULL,
   fecha_cancelacion DATETIME NULL,
   motivo_cancelacion VARCHAR(100) NULL,
+  observacion_final TEXT NULL,
+  requiere_nueva_cita TINYINT(1) NOT NULL DEFAULT 0,
+  requiere_cambio_especialidad TINYINT(1) NOT NULL DEFAULT 0,
   modalidad VARCHAR(30) NULL,
   canal_solicitud VARCHAR(30) NULL,
   es_primera_consulta TINYINT(1) NULL,
@@ -99,6 +104,31 @@ CREATE TABLE IF NOT EXISTS citas (
   CONSTRAINT fk_citas_cliente FOREIGN KEY (cliente_id) REFERENCES usuarios(id) ON DELETE CASCADE,
   CONSTRAINT fk_citas_abogado FOREIGN KEY (abogado_id) REFERENCES usuarios(id) ON DELETE CASCADE,
   CONSTRAINT fk_citas_tipo_de_caso FOREIGN KEY (tipo_de_caso_id) REFERENCES tipos_de_caso(id) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS cita_notas_abogado (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  cita_id INT NOT NULL,
+  abogado_id INT NOT NULL,
+  nota TEXT NOT NULL,
+  creado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_cita_notas_cita (cita_id),
+  INDEX idx_cita_notas_abogado (abogado_id),
+  CONSTRAINT fk_cita_notas_cita FOREIGN KEY (cita_id) REFERENCES citas(id) ON DELETE CASCADE,
+  CONSTRAINT fk_cita_notas_abogado FOREIGN KEY (abogado_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS cita_documentos (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  cita_id INT NOT NULL,
+  cliente_id INT NOT NULL,
+  archivo VARCHAR(255) NOT NULL,
+  nombre_original VARCHAR(180) NOT NULL,
+  creado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_cita_documentos_cita (cita_id),
+  INDEX idx_cita_documentos_cliente (cliente_id),
+  CONSTRAINT fk_cita_documentos_cita FOREIGN KEY (cita_id) REFERENCES citas(id) ON DELETE CASCADE,
+  CONSTRAINT fk_cita_documentos_cliente FOREIGN KEY (cliente_id) REFERENCES usuarios(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS ingresos (

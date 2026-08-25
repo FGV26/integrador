@@ -96,6 +96,7 @@ function bindEvents() {
     abogadoSelect.addEventListener('change', updateSummary);
     tipoCasoSelect.addEventListener('change', updateSummary);
     mensajeInput.addEventListener('input', updateSummary);
+
     paymentCards.forEach(card => {
         card.addEventListener('click', () => {
             paymentCards.forEach(item => item.classList.remove('is-selected'));
@@ -151,6 +152,7 @@ function validateStep(step, options = {}) {
         if (!mensajeInput.value.trim()) {
             return showError('Escribe una breve descripcion de tu cita.');
         }
+
     }
 
     if (step === 2) {
@@ -314,6 +316,7 @@ function renderHourPlaceholder(message) {
     hourOptions.innerHTML = `<div class="selection-empty">${message}</div>`;
 }
 
+
 function updateSummary() {
     const abogadoText = abogadoSelect.options[abogadoSelect.selectedIndex]?.text || 'Pendiente';
     const tipoCasoText = tipoCasoSelect.options[tipoCasoSelect.selectedIndex]?.text || 'Pendiente';
@@ -321,6 +324,7 @@ function updateSummary() {
     const horaText = selectedHour ? formatHour(selectedHour) : 'Pendiente';
     const mensajeText = mensajeInput.value.trim() || 'Pendiente';
     const metodoPagoText = metodoPagoInput.value ? capitalize(metodoPagoInput.value) : 'Pendiente';
+    const pdfText = documentoPdfInput && documentoPdfInput.files.length > 0 ? 'Adjunto' : 'No adjunto';
 
     document.getElementById('summaryAbogado').textContent = abogadoText;
     document.getElementById('summaryTipoCaso').textContent = tipoCasoText;

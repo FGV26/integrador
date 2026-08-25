@@ -28,10 +28,16 @@ if (!$cita) {
     exit();
 }
 
+if ((int) $cita->getAbogadoId() !== (int) $usuario->getId()) {
+    header('Location: /Abogado/Citas.php');
+    exit();
+}
+
 $usuarioDAO = new UsuarioDAO();
 $tipoDeCasoDAO = new TipoDeCasoDAO();
 $cliente = $usuarioDAO->obtenerPorId($cita->getClienteId());
 $tipoDeCaso = $tipoDeCasoDAO->obtenerPorId($cita->getTipoDeCasoId());
+$documentos = $citaDAO->obtenerDocumentosCita($cita->getId());
 $mensaje = $_SESSION['mensaje'] ?? '';
 $mensajeTipo = $_SESSION['mensaje_tipo'] ?? 'success';
 unset($_SESSION['mensaje'], $_SESSION['mensaje_tipo']);
@@ -39,6 +45,44 @@ unset($_SESSION['mensaje'], $_SESSION['mensaje_tipo']);
 function h($value)
 {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+}
+
+$motivoCompleto = trim((string) $cita->getMensaje());
+$motivoLimite = 145;
+$motivoCorto = strlen($motivoCompleto) > $motivoLimite ? substr($motivoCompleto, 0, $motivoLimite) . '...' : $motivoCompleto;
+$tieneDocumentos = count($documentos) > 0;
+$horariosDisponibles = ['09:30', '10:30', '11:30', '12:30', '14:00', '15:00', '16:00', '17:00'];
+$fechaMinimaReajuste = date('Y-m-d');
+$diasReajuste = [];
+$nombresDiasReajuste = [
+    'Monday' => 'Lunes',
+    'Tuesday' => 'Martes',
+    'Wednesday' => 'Miercoles',
+    'Thursday' => 'Jueves',
+    'Friday' => 'Viernes',
+    'Saturday' => 'Sabado',
+    'Sunday' => 'Domingo',
+];
+$mesesReajuste = [
+    '01' => 'enero',
+    '02' => 'febrero',
+    '03' => 'marzo',
+    '04' => 'abril',
+    '05' => 'mayo',
+    '06' => 'junio',
+    '07' => 'julio',
+    '08' => 'agosto',
+    '09' => 'septiembre',
+    '10' => 'octubre',
+    '11' => 'noviembre',
+    '12' => 'diciembre',
+];
+for ($i = 1; $i <= 3; $i++) {
+    $dia = new DateTimeImmutable('+' . $i . ' day');
+    $diasReajuste[] = [
+        'value' => $dia->format('Y-m-d'),
+        'label' => ($nombresDiasReajuste[$dia->format('l')] ?? $dia->format('l')) . ', ' . $dia->format('d') . ' de ' . ($mesesReajuste[$dia->format('m')] ?? $dia->format('m')),
+    ];
 }
 ?>
 
@@ -61,15 +105,6 @@ function h($value)
 
     <main class="abogado-dashboard-main">
         <div class="abogado-dashboard-shell abogado-grid">
-            <section class="abogado-card abogado-card--hero">
-                <span class="abogado-eyebrow">Ficha de atencion</span>
-                <h1 class="abogado-title">Detalle profesional de la cita</h1>
-                <p class="abogado-subtitle">
-                    Revisa la informacion del cliente, el motivo de la consulta y ejecuta la siguiente
-                    accion operativa segun el estado actual de la cita.
-                </p>
-            </section>
-
             <?php if ($mensaje !== '') : ?>
                 <div class="abogado-alert<?php echo $mensajeTipo === 'danger' ? ' abogado-alert--danger' : ' abogado-alert--success'; ?>" role="alert">
                     <i class="bi <?php echo $mensajeTipo === 'danger' ? 'bi-shield-exclamation' : 'bi-check-circle'; ?>"></i>
@@ -81,11 +116,8 @@ function h($value)
                 <div class="abogado-card abogado-card--detail">
                     <div class="abogado-detail-header">
                         <div>
-                            <span class="abogado-eyebrow">Expediente de reunion</span>
                             <h2 class="abogado-toolbar__title">Datos de la atencion</h2>
-                            <p class="abogado-toolbar__text">Esta ficha resume la informacion necesaria para atender al cliente y decidir la siguiente accion del flujo.</p>
                         </div>
-                        <span class="abogado-detail-header__code">CITA <?php echo (int) $cita->getId(); ?></span>
                     </div>
 
                     <div class="abogado-detail-grid">
@@ -96,6 +128,10 @@ function h($value)
                         <article class="abogado-detail-box">
                             <span>Correo del cliente</span>
                             <strong><?php echo h($cliente->getCorreo()); ?></strong>
+                        </article>
+                        <article class="abogado-detail-box">
+                            <span>Telefono de emergencia</span>
+                            <strong><?php echo h($cliente->getTelefono() ? '+51 ' . $cliente->getTelefono() : 'Sin telefono'); ?></strong>
                         </article>
                         <article class="abogado-detail-box">
                             <span>Fecha</span>
@@ -113,11 +149,29 @@ function h($value)
                             <span>Estado actual</span>
                             <strong><span class="abogado-status abogado-status--<?php echo h(strtolower($cita->getEstado())); ?>"><?php echo h($cita->getEstado()); ?></span></strong>
                         </article>
+                        <article class="abogado-detail-box abogado-detail-box--document <?php echo $tieneDocumentos ? 'is-attached' : 'is-missing'; ?>">
+                            <span>Documento PDF</span>
+                            <strong>
+                                <i class="bi <?php echo $tieneDocumentos ? 'bi-file-earmark-check-fill' : 'bi-file-earmark-x-fill'; ?>"></i>
+                                <?php echo $tieneDocumentos ? 'Adjunto' : 'No adjunto'; ?>
+                            </strong>
+                        </article>
+
                     </div>
 
-                    <div class="abogado-notes">
-                        <span class="abogado-eyebrow">Motivo de consulta</span>
-                        <p><?php echo nl2br(h($cita->getMensaje())); ?></p>
+                    <div class="abogado-notes abogado-notes--compact">
+                        <div>
+                            <span class="abogado-eyebrow">Motivo de consulta</span>
+                            <p><?php echo nl2br(h($motivoCorto !== '' ? $motivoCorto : 'Sin motivo registrado.')); ?></p>
+                        </div>
+                        <button
+                            type="button"
+                            class="abogado-note-arrow"
+                            id="openMotivoDrawer"
+                            data-motivo="<?php echo h($motivoCompleto !== '' ? $motivoCompleto : 'Sin motivo registrado.'); ?>"
+                            aria-label="Leer motivo completo">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -129,21 +183,9 @@ function h($value)
                             <strong><?php echo h(ucfirst($cita->getEstado())); ?></strong>
                         </div>
                         <div class="abogado-briefing__item">
-                            <span>Cliente a atender</span>
-                            <strong><?php echo h(trim($cliente->getNombre() . ' ' . $cliente->getApellidoPaterno())); ?></strong>
+                            <span>Siguiente paso</span>
+                            <strong><?php echo $cita->getEstado() === 'pendiente' ? 'Aceptar, rechazar o reajustar la cita' : ($cita->getEstado() === 'confirmada' ? 'Iniciar la atencion de 40 minutos' : ($cita->getEstado() === 'en_atencion' ? 'Continuar atencion abierta' : 'Sin accion pendiente')); ?></strong>
                         </div>
-                        <div class="abogado-briefing__item">
-                            <span>Prioridad operativa</span>
-                            <strong><?php echo $cita->getEstado() === 'pendiente' ? 'Requiere confirmacion del abogado' : ($cita->getEstado() === 'confirmada' ? 'Lista para cierre o cancelacion' : 'Sin accion pendiente'); ?></strong>
-                        </div>
-                        <div class="abogado-briefing__item">
-                            <span>Canal de control</span>
-                            <strong>Seguimiento interno desde el panel legal</strong>
-                        </div>
-                    </div>
-
-                    <div class="abogado-briefing__note">
-                        Antes de cambiar el estado, revisa si el caso ya fue coordinado con el cliente y si la informacion del motivo de consulta es suficiente para la atencion.
                     </div>
 
                     <div class="abogado-briefing__actions">
@@ -160,21 +202,35 @@ function h($value)
                                     <span>Aceptar cita</span>
                                 </button>
                             </form>
+                            <button type="button" class="abogado-button abogado-button--danger w-100 js-open-drawer" data-target="rechazoDrawer">
+                                <i class="bi bi-x-circle"></i>
+                                <span>Rechazar con motivo</span>
+                            </button>
+                            <button type="button" class="abogado-button abogado-button--ghost w-100 js-open-drawer" data-target="reajusteDrawer">
+                                <i class="bi bi-calendar2-week"></i>
+                                <span>Reajustar cita</span>
+                            </button>
                         <?php elseif ($cita->getEstado() == 'confirmada') : ?>
                             <form method="POST" action="<?php echo $base_url; ?>Controladores/ControladorInformacion.php">
                                 <input type="hidden" name="cita_id" value="<?php echo (int) $cita->getId(); ?>">
-                                <button type="submit" name="terminar" class="abogado-button abogado-button--primary w-100">
-                                    <i class="bi bi-check2-square"></i>
-                                    <span>Marcar como terminada</span>
+                                <button type="submit" name="iniciar" class="abogado-button abogado-button--primary w-100">
+                                    <i class="bi bi-play-circle"></i>
+                                    <span>Iniciar atencion</span>
                                 </button>
                             </form>
-                            <form method="POST" action="<?php echo $base_url; ?>Controladores/ControladorInformacion.php">
-                                <input type="hidden" name="cita_id" value="<?php echo (int) $cita->getId(); ?>">
-                                <button type="submit" name="cancelar" class="abogado-button abogado-button--danger w-100">
-                                    <i class="bi bi-x-circle"></i>
-                                    <span>Cancelar cita</span>
-                                </button>
-                            </form>
+                            <button type="button" class="abogado-button abogado-button--danger w-100 js-open-drawer" data-target="rechazoDrawer">
+                                <i class="bi bi-x-circle"></i>
+                                <span>Cancelar con motivo</span>
+                            </button>
+                            <button type="button" class="abogado-button abogado-button--ghost w-100 js-open-drawer" data-target="reajusteDrawer">
+                                <i class="bi bi-calendar2-week"></i>
+                                <span>Reajustar cita</span>
+                            </button>
+                        <?php elseif ($cita->getEstado() == 'en_atencion') : ?>
+                            <a href="<?php echo $base_url; ?>Abogado/AtencionCita.php?id=<?php echo (int) $cita->getId(); ?>" class="abogado-button abogado-button--primary w-100">
+                                <i class="bi bi-folder2-open"></i>
+                                <span>Continuar atencion</span>
+                            </a>
                         <?php else : ?>
                             <div class="abogado-alert" role="status">
                                 <i class="bi bi-info-circle"></i>
@@ -187,7 +243,174 @@ function h($value)
         </div>
     </main>
 
+    <div class="abogado-side-drawer" id="motivoDrawer" aria-hidden="true">
+        <button class="abogado-side-drawer__backdrop" type="button" id="closeMotivoBackdrop" aria-label="Cerrar panel"></button>
+        <aside class="abogado-side-drawer__panel" role="dialog" aria-modal="true" aria-labelledby="motivoDrawerTitle">
+            <div class="abogado-side-drawer__header">
+                <div>
+                    <span class="abogado-eyebrow">Lectura completa</span>
+                    <h2 id="motivoDrawerTitle">Motivo de consulta</h2>
+                </div>
+                <button type="button" class="abogado-drawer-close" id="closeMotivoDrawer" aria-label="Cerrar panel">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <article class="abogado-drawer-note">
+                <span>Motivo registrado por el cliente</span>
+                <p id="motivoDrawerText"></p>
+            </article>
+        </aside>
+    </div>
+
+    <div class="abogado-side-drawer" id="rechazoDrawer" aria-hidden="true">
+        <button class="abogado-side-drawer__backdrop js-close-drawer" type="button" aria-label="Cerrar panel"></button>
+        <aside class="abogado-side-drawer__panel" role="dialog" aria-modal="true" aria-labelledby="rechazoDrawerTitle">
+            <div class="abogado-side-drawer__header">
+                <div>
+                    <span class="abogado-eyebrow">Confirmacion segura</span>
+                    <h2 id="rechazoDrawerTitle"><?php echo $cita->getEstado() === 'pendiente' ? 'Rechazar cita' : 'Cancelar cita'; ?></h2>
+                </div>
+                <button type="button" class="abogado-drawer-close js-close-drawer" aria-label="Cerrar panel">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <form method="POST" action="<?php echo $base_url; ?>Controladores/ControladorInformacion.php" class="abogado-drawer-form">
+                <input type="hidden" name="cita_id" value="<?php echo (int) $cita->getId(); ?>">
+                <label>
+                    <span>Motivo</span>
+                    <textarea name="motivo_cancelacion" rows="5" placeholder="Explica brevemente el motivo" required></textarea>
+                </label>
+                <label>
+                    <span>Contrasena de validacion</span>
+                    <input type="password" name="contrasena_confirmacion" placeholder="Ingresa tu contrasena" required>
+                </label>
+                <button type="submit" name="cancelar" class="abogado-button abogado-button--danger w-100">
+                    <i class="bi bi-shield-check"></i>
+                    <span>Confirmar rechazo</span>
+                </button>
+            </form>
+        </aside>
+    </div>
+
+    <div class="abogado-side-drawer" id="reajusteDrawer" aria-hidden="true">
+        <button class="abogado-side-drawer__backdrop js-close-drawer" type="button" aria-label="Cerrar panel"></button>
+        <aside class="abogado-side-drawer__panel" role="dialog" aria-modal="true" aria-labelledby="reajusteDrawerTitle">
+            <div class="abogado-side-drawer__header">
+                <div>
+                    <span class="abogado-eyebrow">Nueva agenda</span>
+                    <h2 id="reajusteDrawerTitle">Reajustar cita</h2>
+                </div>
+                <button type="button" class="abogado-drawer-close js-close-drawer" aria-label="Cerrar panel">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <form method="POST" action="<?php echo $base_url; ?>Controladores/ControladorInformacion.php" class="abogado-drawer-form">
+                <input type="hidden" name="cita_id" value="<?php echo (int) $cita->getId(); ?>">
+                <label>
+                    <span>Nueva fecha</span>
+                    <select name="nueva_fecha" required>
+                        <?php foreach ($diasReajuste as $diaReajuste) : ?>
+                            <option value="<?php echo h($diaReajuste['value']); ?>">
+                                <?php echo h($diaReajuste['label']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </label>
+                <label>
+                    <span>Nuevo horario</span>
+                    <select name="nueva_hora" required>
+                        <?php foreach ($horariosDisponibles as $horario) : ?>
+                            <option value="<?php echo h($horario); ?>" <?php echo substr($cita->getHora(), 0, 5) === $horario ? 'selected' : ''; ?>>
+                                <?php echo h($horario); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </label>
+                <label>
+                    <span>Motivo del reajuste</span>
+                    <textarea name="motivo_reajuste" rows="4" placeholder="Explica por que se reajusta la cita" required></textarea>
+                </label>
+                <label>
+                    <span>Contrasena de validacion</span>
+                    <input type="password" name="contrasena_confirmacion" placeholder="Ingresa tu contrasena" required>
+                </label>
+                <button type="submit" name="reajustar" class="abogado-button abogado-button--primary w-100">
+                    <i class="bi bi-calendar-check"></i>
+                    <span>Guardar reajuste</span>
+                </button>
+            </form>
+        </aside>
+    </div>
+
     <?php render_abogado_dashboard_footer(); ?>
+    <script>
+    (function () {
+        const drawer = document.getElementById('motivoDrawer');
+        const openButton = document.getElementById('openMotivoDrawer');
+        const closeButtons = [
+            document.getElementById('closeMotivoDrawer'),
+            document.getElementById('closeMotivoBackdrop')
+        ];
+        const text = document.getElementById('motivoDrawerText');
+
+        if (!drawer || !openButton || !text) {
+            return;
+        }
+
+        function openDrawer() {
+            text.textContent = openButton.dataset.motivo || 'Sin motivo registrado.';
+            drawer.classList.add('is-open');
+            drawer.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('is-drawer-open');
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('is-open');
+            drawer.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('is-drawer-open');
+        }
+
+        openButton.addEventListener('click', openDrawer);
+        closeButtons.forEach((button) => {
+            if (button) {
+                button.addEventListener('click', closeDrawer);
+            }
+        });
+
+        document.querySelectorAll('.js-open-drawer').forEach((button) => {
+            button.addEventListener('click', () => {
+                const target = document.getElementById(button.dataset.target || '');
+                if (!target) {
+                    return;
+                }
+                target.classList.add('is-open');
+                target.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('is-drawer-open');
+            });
+        });
+        document.querySelectorAll('.js-close-drawer').forEach((button) => {
+            button.addEventListener('click', () => {
+                const target = button.closest('.abogado-side-drawer');
+                if (!target) {
+                    return;
+                }
+                target.classList.remove('is-open');
+                target.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('is-drawer-open');
+            });
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeDrawer();
+                document.querySelectorAll('.abogado-side-drawer.is-open').forEach((target) => {
+                    target.classList.remove('is-open');
+                    target.setAttribute('aria-hidden', 'true');
+                });
+                document.body.classList.remove('is-drawer-open');
+            }
+        });
+    }());
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

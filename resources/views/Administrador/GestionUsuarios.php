@@ -120,10 +120,18 @@ $errorMessages = [
         </section>
 
         <?php if (isset($_GET['success'], $successMessages[$_GET['success']])) : ?>
-            <div class="admin-alert admin-alert--success" role="status"><i class="bi bi-check-circle"></i><?php echo admin_h($successMessages[$_GET['success']]); ?></div>
+            <div class="admin-alert admin-alert--success" role="status">
+                <i class="bi bi-check-circle"></i>
+                <span><?php echo admin_h($successMessages[$_GET['success']]); ?></span>
+                <button class="admin-alert__close" type="button" aria-label="Cerrar aviso"><i class="bi bi-x-lg"></i></button>
+            </div>
         <?php endif; ?>
         <?php if (isset($_GET['error'], $errorMessages[$_GET['error']])) : ?>
-            <div class="admin-alert admin-alert--danger" role="alert"><i class="bi bi-exclamation-circle"></i><?php echo admin_h($errorMessages[$_GET['error']]); ?></div>
+            <div class="admin-alert admin-alert--danger" role="alert">
+                <i class="bi bi-exclamation-circle"></i>
+                <span><?php echo admin_h($errorMessages[$_GET['error']]); ?></span>
+                <button class="admin-alert__close" type="button" aria-label="Cerrar aviso"><i class="bi bi-x-lg"></i></button>
+            </div>
         <?php endif; ?>
 
         <div class="admin-toolbar admin-toolbar--live">
@@ -443,6 +451,19 @@ const renderizarUsuarios = () => {
     actualizarResumenUsuarios();
     renderizarPaginacionUsuarios();
 };
+
+const cerrarAdminAlert = (alerta) => {
+    if (!alerta || alerta.classList.contains('is-closing')) {
+        return;
+    }
+    alerta.classList.add('is-closing');
+    window.setTimeout(() => alerta.remove(), 220);
+};
+
+document.querySelectorAll('.admin-alert').forEach((alerta) => {
+    alerta.querySelector('.admin-alert__close')?.addEventListener('click', () => cerrarAdminAlert(alerta));
+    window.setTimeout(() => cerrarAdminAlert(alerta), 3000);
+});
 
 const aplicarFiltrosUsuarios = () => {
     const texto = $('#buscarUsuario').val().trim().toLowerCase();

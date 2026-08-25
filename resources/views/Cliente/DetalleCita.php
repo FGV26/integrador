@@ -28,13 +28,54 @@ if (!$cita) {
     exit();
 }
 
+if ((int) $cita->getClienteId() !== (int) $usuario->getId()) {
+    header('Location: /Cliente/Citas.php');
+    exit();
+}
+
 $usuarioDAO = new UsuarioDAO();
 $abogado = $usuarioDAO->obtenerPorId($cita->getAbogadoId());
 $tipoDeCasoDAO = new TipoDeCasoDAO();
 $tipoDeCaso = $tipoDeCasoDAO->obtenerPorId($cita->getTipoDeCasoId());
 $mensaje = '';
+$mensajeTipo = 'danger';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_cancel'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['subir_documento'])) {
+    $estadosPermitidos = ['pendiente', 'confirmada', 'en_atencion'];
+    $archivo = $_FILES['documento_cita'] ?? null;
+
+    if (!in_array($cita->getEstado(), $estadosPermitidos, true)) {
+        $mensaje = 'La cita ya no permite adjuntar documentos.';
+    } elseif (!$archivo || ($archivo['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
+        $mensaje = 'Selecciona un documento PDF valido.';
+    } else {
+        $extension = strtolower(pathinfo((string) $archivo['name'], PATHINFO_EXTENSION));
+        $tipoMime = (string) ($archivo['type'] ?? '');
+        $tamanoMaximo = 5 * 1024 * 1024;
+
+        if ($extension !== 'pdf' || ($tipoMime !== '' && $tipoMime !== 'application/pdf')) {
+            $mensaje = 'Solo se permiten documentos PDF.';
+        } elseif ((int) $archivo['size'] > $tamanoMaximo) {
+            $mensaje = 'El PDF no debe superar los 5 MB.';
+        } else {
+            $directorio = dirname(__DIR__, 3) . '/public/uploads/documentos';
+            if (!is_dir($directorio)) {
+                mkdir($directorio, 0775, true);
+            }
+
+            $nombreArchivo = 'cita_' . (int) $cita->getId() . '_' . bin2hex(random_bytes(8)) . '.pdf';
+            $rutaDestino = $directorio . '/' . $nombreArchivo;
+            $rutaRelativa = 'uploads/documentos/' . $nombreArchivo;
+
+            if (move_uploaded_file($archivo['tmp_name'], $rutaDestino) && $citaDAO->agregarDocumento($cita->getId(), $usuario->getId(), $rutaRelativa, (string) $archivo['name'])) {
+                $mensaje = 'Documento adjuntado correctamente.';
+                $mensajeTipo = 'success';
+            } else {
+                $mensaje = 'No se pudo guardar el documento. Intenta nuevamente.';
+            }
+        }
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_cancel'])) {
     if ($cita->getEstado() == 'pendiente') {
         $contrasenaConfirmacion = trim((string) ($_POST['contrasena_confirmacion'] ?? ''));
 
@@ -52,6 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_cancel'])) {
         }
     }
 }
+
+$documentos = $citaDAO->obtenerDocumentosCita($cita->getId());
 
 function h($value)
 {
@@ -79,8 +122,8 @@ function h($value)
     <main class="cliente-dashboard-main">
         <div class="cliente-dashboard-shell cliente-dashboard-grid">
             <?php if ($mensaje !== '') : ?>
-                <div class="cliente-dashboard-alert cliente-dashboard-alert--danger" role="alert">
-                    <i class="bi bi-shield-exclamation"></i>
+                <div class="cliente-dashboard-alert cliente-dashboard-alert--<?php echo $mensajeTipo === 'success' ? 'success' : 'danger'; ?>" role="alert">
+                    <i class="bi <?php echo $mensajeTipo === 'success' ? 'bi-check-circle' : 'bi-shield-exclamation'; ?>"></i>
                     <span><?php echo h($mensaje); ?></span>
                 </div>
             <?php endif; ?>
@@ -162,6 +205,41 @@ function h($value)
                             <?php endif; ?>
                         </div>
                     </aside>
+                </div>
+            </section>
+
+            <section class="cliente-dashboard-card cliente-dashboard-card--ticket">
+                <div class="ticket-card__header">
+                    <div>
+                        <span class="cliente-dashboard-eyebrow">Documentos</span>
+                        <h2 class="cliente-dashboard-title cliente-dashboard-title--section">Archivos para la cita</h2>
+                    </div>
+                </div>
+
+                <div class="cliente-documents-grid">
+                    <form class="cliente-document-form" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="subir_documento" value="1">
+                        <label for="documento_cita">Adjuntar un PDF</label>
+                        <input type="file" id="documento_cita" name="documento_cita" accept="application/pdf,.pdf" required>
+                        <small>Sube los documentos uno por uno. Tambien puedes llevarlos presencialmente.</small>
+                        <button type="submit" class="cliente-dashboard-button cliente-dashboard-button--primary">
+                            <i class="bi bi-file-earmark-arrow-up"></i>
+                            <span>Subir documento</span>
+                        </button>
+                    </form>
+
+                    <div class="cliente-document-list">
+                        <?php if (empty($documentos)) : ?>
+                            <div class="cliente-dashboard-empty">No tienes documentos digitales adjuntos.</div>
+                        <?php else : ?>
+                            <?php foreach ($documentos as $documento) : ?>
+                                <a class="cliente-document-item" href="<?php echo $base_url . h($documento['archivo']); ?>" target="_blank" rel="noopener">
+                                    <i class="bi bi-file-earmark-pdf"></i>
+                                    <span><?php echo h($documento['nombre_original']); ?></span>
+                                </a>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </section>
         </div>

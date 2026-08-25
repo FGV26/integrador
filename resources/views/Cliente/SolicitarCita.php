@@ -141,6 +141,7 @@ function h($value)
                                     <label for="mensaje" class="form-label">Breve descripcion</label>
                                     <textarea name="mensaje" id="mensaje" class="form-control" rows="5" placeholder="Cuentanos brevemente el motivo de la cita" required></textarea>
                                 </div>
+
                             </div>
                         </div>
                     </section>
@@ -195,6 +196,7 @@ function h($value)
                                     <span class="summary-inline__label">Detalle:</span>
                                     <span class="summary-inline__value" id="summaryMensaje">Pendiente</span>
                                 </p>
+
                             </div>
                         </div>
                     </section>

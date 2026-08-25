@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contrasenaConfirmacion = $_POST['contrasena_confirmacion'] ?? '';
     $estado = 'pendiente';
 
+
     if ($clienteId === '' || $abogadoId === '' || $fecha === '' || $hora === '' || $tipoDeCasoId === '' || $mensaje === '') {
         $_SESSION['mensaje'] = 'Completa todos los pasos antes de confirmar la cita.';
         $_SESSION['mensaje_tipo'] = 'warning';
