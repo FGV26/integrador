@@ -59,6 +59,8 @@ mysql-data/
 storage/uploads/
 storage/tmp/
 storage/cache/
+public/uploads/*
+!public/uploads/.gitkeep
 
 # Archivos comprimidos generados localmente
 *.zip
